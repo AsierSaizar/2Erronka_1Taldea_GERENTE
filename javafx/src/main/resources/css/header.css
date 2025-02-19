@@ -1,0 +1,23 @@
+
+.root {
+    -fx-background-color: #091725;
+}
+.buttonCss {
+    -fx-background-radius: 33;
+    -fx-background-color: BA450D;
+    -fx-color: White;
+
+}
+.input {
+    -fx-background-radius: 20;
+    -fx-background-color: White;
+    -fx-color: black;
+
+}
+.tableBackColor{
+    -fx-background-color: White;
+}
+.textFieldTxat{
+    -fx-border: 1px;
+    --border-color: 232, 158, 71;
+}

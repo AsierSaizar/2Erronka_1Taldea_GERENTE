@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1204.0" style="-fx-background-color: #F8F8F8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.TxataController">
+    <HBox fx:id="navBarContainer" prefHeight="74.0" prefWidth="1063.0" styleClass="navBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    <!-- Título del chat -->
+    <Label layoutX="567.0" layoutY="97.0" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-alignment: center;" text="Txata" AnchorPane.leftAnchor="567.0" AnchorPane.rightAnchor="567.0" />
+
+    <!-- Área de mensajes con scroll -->
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" layoutX="26.0" layoutY="152.0" prefHeight="514.0" prefWidth="804.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
+        <VBox fx:id="chatBox" spacing="10.0" style="-fx-padding: 10;">
+            <!-- Mensajes del chat -->
+        </VBox>
+    </ScrollPane>
+
+    <!-- Campo de entrada de mensajes -->
+    <TextField fx:id="messageField" layoutX="26.0" layoutY="687.0" prefHeight="50.0" prefWidth="1030.0" promptText="Escribe un mensaje" styleClass="textFieldTxat" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="130.0" />
+
+    <!-- Botón de envío -->
+    <Button fx:id="sendButton" layoutX="1090.0" layoutY="686.0" onAction="#sendMessage" prefHeight="50.0" prefWidth="100.0" styleClass="buttonCss" text="Enviar" textFill="WHITE" AnchorPane.rightAnchor="15.0">
+      <font>
+         <Font size="19.0" />
+      </font></Button>
+
+    <!-- Hojas de estilo -->
+    <stylesheets>
+        <URL value="@../../../css/navbar.css" />
+        <URL value="@../../../css/header.css" />
+    </stylesheets>
+</AnchorPane>

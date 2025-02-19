@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1320.0" style="-fx-background-color: #F8F8F8;" styleClass="tableBackColor" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LangileaController">
+    <children>
+        <HBox fx:id="navBarContainer" prefHeight="74.0" prefWidth="1063.0" styleClass="navBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label layoutX="122.0" layoutY="92.0" prefHeight="34.0" prefWidth="103.0" text="Langileak">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+
+        <TableView fx:id="langileakTable" layoutX="320.0" layoutY="137.0" maxHeight="300.0" maxWidth="880.0" prefHeight="300.0" prefWidth="877.0" AnchorPane.leftAnchor="320.0">
+            <columns>
+                <TableColumn fx:id="idColumn" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="izenaColumn" maxWidth="150.0" minWidth="75.0" prefWidth="100.0" text="Izena" />
+                <TableColumn fx:id="abizenaColumn" maxWidth="150.0" minWidth="75.0" prefWidth="100.0" text="Abizena" />
+                <TableColumn fx:id="emailColumn" maxWidth="250.0" minWidth="150.0" prefWidth="200.0" text="Emaila" />
+                <TableColumn fx:id="pasahitzaColumn" maxWidth="250.0" minWidth="150.0" prefWidth="200.0" text="Pasahitza" />
+                <TableColumn fx:id="nivelPermisosColumn" maxWidth="100.0" minWidth="75.0" prefWidth="100.0" text="Nivel Permisos" />
+                <TableColumn fx:id="deleted_atColumn" maxWidth="128.79998779296875" minWidth="75.0" prefWidth="125.5999755859375" text="Deleted at" />
+            </columns>
+        </TableView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#091725" height="198.0" layoutX="101.0" layoutY="510.0" stroke="BLACK" strokeType="INSIDE" width="383.0" />
+      <Label blendMode="SRC_ATOP" layoutX="129.0" layoutY="511.0" prefHeight="56.0" prefWidth="161.0" text="Gehitu langilea" textFill="WHITE">
+         <font>
+            <Font size="23.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Label>
+      <TextField fx:id="izenaField" blendMode="SRC_ATOP" layoutX="129.0" layoutY="581.0" promptText="Izena">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="abizenaField" blendMode="SRC_ATOP" layoutX="300.0" layoutY="582.0" promptText="Abizena">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="emailaField" blendMode="SRC_ATOP" layoutX="129.0" layoutY="617.0" promptText="Emaila">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="pasahitzaField" blendMode="SRC_ATOP" layoutX="300.0" layoutY="617.0" promptText="Pasahitza">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <Button blendMode="SRC_ATOP" layoutX="299.0" layoutY="656.0" mnemonicParsing="false" onAction="#createLangilea" prefHeight="26.0" prefWidth="150.0" styleClass="buttonCss" text="Sortu">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Button>
+      <ComboBox fx:id="nivelPermisosComboBox" editable="false" layoutX="128.0" layoutY="657.0" prefWidth="150.0" promptText="Nivel de permisos" value="0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="0" />
+               <String fx:value="1" />
+               <String fx:value="2" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#091725" height="198.0" layoutX="576.0" layoutY="509.0" stroke="BLACK" strokeType="INSIDE" width="383.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#091725" height="198.0" layoutX="1046.0" layoutY="510.0" stroke="BLACK" strokeType="INSIDE" width="383.0" />
+      <Label layoutX="609.0" layoutY="510.0" prefHeight="56.0" prefWidth="182.0" text="Eraldatu langilea" textFill="WHITE">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="izenaEditField" layoutX="609.0" layoutY="580.0" promptText="Izena" />
+      <TextField fx:id="abizenaEditField" layoutX="780.0" layoutY="581.0" promptText="Abizena" />
+      <TextField fx:id="emailaEditField" layoutX="609.0" layoutY="616.0" promptText="Emaila" />
+      <TextField fx:id="pasahitzaEditField" layoutX="780.0" layoutY="616.0" promptText="Pasahitza" />
+      <Button layoutX="779.0" layoutY="655.0" mnemonicParsing="false" onAction="#editLangilea" prefHeight="26.0" prefWidth="150.0" styleClass="buttonCss" text="Eraldatu" />
+      <ComboBox fx:id="nivelPermisosComboBoxEdit" editable="false" layoutX="608.0" layoutY="655.0" prefWidth="150.0" promptText="Nivel de permisos" value="0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="0" />
+               <String fx:value="1" />
+               <String fx:value="2" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <Label layoutX="1143.0" layoutY="530.0" prefHeight="56.0" prefWidth="189.0" text="Ezabatu langilea" textFill="WHITE">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="izenaDeleteField" editable="false" layoutX="1220.0" layoutY="599.0" prefHeight="26.0" prefWidth="131.0" promptText="Izena" />
+      <TextField fx:id="IdDeleteField" editable="false" layoutX="1143.0" layoutY="599.0" prefHeight="26.0" prefWidth="63.0" promptText="ID" />
+      <Button layoutX="1143.0" layoutY="644.0" mnemonicParsing="false" onAction="#deleteLangilea" prefHeight="34.0" prefWidth="103.0" styleClass="buttonCss" text="Ezabatu" />
+      <Button layoutX="1247.0" layoutY="644.0" mnemonicParsing="false" onAction="#berreskuratuLangilea" prefHeight="34.0" prefWidth="103.0" styleClass="buttonCss" text="Berreskuratu" />
+
+
+
+    </children>
+    <stylesheets>
+        <URL value="@../../../css/navbar.css" />
+        <URL value="@../../../css/header.css" />
+    </stylesheets>
+</AnchorPane>
