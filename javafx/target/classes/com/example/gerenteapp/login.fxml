@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="523.0" prefWidth="828.0" spacing="20.0" stylesheets="@../../../css/header.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LoginController">
+
+        <ImageView fitHeight="201.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/saboreame_sin_background.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="emai" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Email" styleClass="input">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="pasa" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Pasahitza" styleClass="input">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </TextField>
+        <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" onAction="#loginBotoia" prefHeight="28.0" prefWidth="200.0" text="Saioa hasi" textFill="WHITE">
+            <font>
+                <Font size="17.0" />
+            </font>
+            <styleClass>
+                <String fx:value="button-rounded" />
+                <String fx:value="buttonCss" />
+            </styleClass>
+        </Button>
+
+</VBox>

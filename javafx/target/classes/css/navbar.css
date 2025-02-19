@@ -1,0 +1,27 @@
+.navBar{
+    -fx-background-color: #091725;
+}
+
+
+.navbarBtn {
+    -fx-text-fill: white; /* Color del texto */
+    -fx-background-color: transparent; /* Fondo transparente */
+    -fx-font-size: 10px; /* Tamaño de la fuente */
+    -fx-padding: 5px 15px; /* Espaciado interno */
+    -fx-border-width: 1px; /* Ancho del borde */
+    -fx-border-color: white; /* Borde visible al pasar el mouse */
+    -fx-cursor: hand; /* Cambia el cursor a mano al pasar */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-border-radius: 5px; /* Borde redondeado */
+    -fx-width: 50px;
+
+}
+
+.navbarBtn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente al pasar el mouse */
+}
+
+.navbarBtn:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.4); /* Fondo más claro al presionar */
+    -fx-border-color: #ddd; /* Color de borde más claro al presionar */
+}
