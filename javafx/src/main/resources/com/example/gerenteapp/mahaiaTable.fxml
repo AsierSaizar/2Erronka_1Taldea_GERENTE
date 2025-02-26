@@ -90,6 +90,8 @@
             <Font size="15.0" />
          </font>
       </Label>
+      <Button layoutX="865.0" layoutY="208.0" mnemonicParsing="false" onAction="#xmlDownload" prefHeight="42.0" prefWidth="137.0" text="XML-a Deskargatu" fx:id="xmlDownload" />
+      <Button layoutX="865.0" layoutY="152.0" mnemonicParsing="false" onAction="#informeaSortu" prefHeight="42.0" prefWidth="137.0" text="Informea sortu" fx:id="informeaSortu" />
 
     </children>
     <stylesheets>

@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1204.0" style="-fx-background-color: #F8F8F8;" styleClass="tableBackColor" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.MahaiaController">
+<AnchorPane prefHeight="768.0" prefWidth="1204.0" style="-fx-background-color: #F8F8F8;" styleClass="tableBackColor" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.MahaiaController">
     <children>
         <HBox fx:id="navBarContainer" prefHeight="74.0" prefWidth="1063.0" styleClass="navBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
 
@@ -90,6 +84,7 @@
             <Font size="15.0" />
          </font>
       </Label>
+      <Button layoutX="870.0" layoutY="213.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="137.0" onAction="#xmlDownload"  text="XML-a Deskargatu" fx:id="xmlDownload" />
 
     </children>
     <stylesheets>

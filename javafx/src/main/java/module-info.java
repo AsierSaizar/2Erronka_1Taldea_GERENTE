@@ -4,7 +4,8 @@ module com.example.gerenteapp {
 
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+        requires java.desktop;
 
-    opens com.example.gerenteapp to javafx.fxml;
+        opens com.example.gerenteapp to javafx.fxml;
     exports com.example.gerenteapp;
 }

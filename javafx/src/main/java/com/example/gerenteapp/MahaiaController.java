@@ -10,7 +10,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -159,6 +166,13 @@ public class MahaiaController extends BaseController {
                 }
         }
 
+
+
+        public void xmlDownload(ActionEvent actionEvent) throws Exception {
+                EguraldiaController eguraldiaController = new EguraldiaController();
+                eguraldiaController.xmlPush();
+        }
+
         /**
          * Limpiar los campos de entrada del formulario.
          */
@@ -169,4 +183,7 @@ public class MahaiaController extends BaseController {
                 gaitutaComboBox.getSelectionModel().selectFirst();
         }
 
+        public void informeaSortu(ActionEvent actionEvent) {
+
+        }
 }
