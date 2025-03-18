@@ -26,7 +26,8 @@ public class LoginKudeatzailea {
                                         rs.getString("pasahitza"),
                                         rs.getString("email"),
                                         rs.getInt("nivel_permisos"),
-                                        rs.getString("deleted_at")
+                                        rs.getString("deleted_at"),
+                                        rs.getBoolean("txat_permiso")
                                 );
                         }
 

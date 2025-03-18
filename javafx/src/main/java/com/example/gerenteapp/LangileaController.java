@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -43,10 +40,15 @@ public class LangileaController extends BaseController {
         @FXML
         private TableColumn<Langilea, Integer> deleted_atColumn;
 
+        @FXML
+        private TableColumn<Langilea, Boolean> txatPermisosColumn;
+
         private ObservableList<Langilea> langileakData = FXCollections.observableArrayList();
 
         @FXML
         private TextField deleted_atEditField;
+
+
 
 
         @FXML
@@ -58,6 +60,7 @@ public class LangileaController extends BaseController {
                 pasahitzaColumn.setCellValueFactory(new PropertyValueFactory<>("pasahitza"));
                 nivelPermisosColumn.setCellValueFactory(new PropertyValueFactory<>("nivelPermisos"));
                 deleted_atColumn.setCellValueFactory(new PropertyValueFactory<>("deleted_at"));
+                txatPermisosColumn.setCellValueFactory(new PropertyValueFactory<>("txatPermisos"));
 
                 loadLangileakData();
                 // Configurar columnas (asegúrate de que estos métodos coincidan con los atributos de tu clase Langilea)
@@ -77,6 +80,7 @@ public class LangileaController extends BaseController {
                                 emailaEditField.setText(newSelection.getEmail());
                                 pasahitzaEditField.setText(newSelection.getPasahitza());
                                 nivelPermisosComboBoxEdit.getSelectionModel().select(newSelection.getNivelPermisos());
+                                txatPermisosEditCheckbox.setSelected(newSelection.getTxatPermiso());
 
                                 deleted_atEditField.setText(String.valueOf(newSelection.getDeleted_at()));
                         }
@@ -101,7 +105,8 @@ public class LangileaController extends BaseController {
                                         resultSet.getString("pasahitza"),
                                         resultSet.getString("email"),
                                         resultSet.getInt("nivel_permisos"),
-                                        resultSet.getString("deleted_at")
+                                        resultSet.getString("deleted_at"),
+                                        resultSet.getBoolean("txat_permiso")
                                 ));
                         }
 
@@ -127,6 +132,9 @@ public class LangileaController extends BaseController {
         @FXML
         private ComboBox nivelPermisosComboBox;
 
+        @FXML
+        private CheckBox txatPermisosCheckbox;
+
 
         public void createLangilea(ActionEvent actionEvent) {
                 // Obtener los valores de los campos
@@ -134,6 +142,7 @@ public class LangileaController extends BaseController {
                 String abizena = abizenaField.getText().trim();
                 String emaila = emailaField.getText().trim();
                 String pasahitza = pasahitzaField.getText().trim();
+                boolean txatPermisos = txatPermisosCheckbox.isSelected();
                 int nivelPermisos;
 
                 try {
@@ -151,7 +160,7 @@ public class LangileaController extends BaseController {
                 }
 
                 // Crear el objeto Langilea
-                Langilea langilea = new Langilea(0, izena, abizena, pasahitza, emaila, nivelPermisos, null );
+                Langilea langilea = new Langilea(0, izena, abizena, pasahitza, emaila, nivelPermisos, null, txatPermisos );
 
                 // Llamar al método para insertar el objeto en la base de datos
                 LangileaKudeatzailea.insertLangilea(langilea);
@@ -171,6 +180,7 @@ public class LangileaController extends BaseController {
                 emailaField.clear();
                 pasahitzaField.clear();
                 nivelPermisosComboBox.getSelectionModel().selectFirst();
+                txatPermisosCheckbox.setSelected(false);
 
         }
 
@@ -232,6 +242,8 @@ public class LangileaController extends BaseController {
         private TextField pasahitzaEditField;
         @FXML
         private ComboBox nivelPermisosComboBoxEdit;
+        @FXML
+        private CheckBox txatPermisosEditCheckbox;
 
 
         public void editLangilea(ActionEvent actionEvent) {
@@ -247,6 +259,7 @@ public class LangileaController extends BaseController {
                 String abizena = abizenaEditField.getText().trim().isEmpty() ? selectedLangilea.getAbizena() : abizenaEditField.getText().trim();
                 String emaila = emailaEditField.getText().trim().isEmpty() ? selectedLangilea.getEmail() : emailaEditField.getText().trim();
                 String pasahitza = pasahitzaEditField.getText().trim().isEmpty() ? selectedLangilea.getPasahitza() : pasahitzaEditField.getText().trim();
+                boolean txatPermisos = txatPermisosEditCheckbox.isSelected();
                 int nivelPermisos;
 
                 try {
@@ -262,6 +275,7 @@ public class LangileaController extends BaseController {
                 selectedLangilea.setEmail(emaila);
                 selectedLangilea.setPasahitza(pasahitza);
                 selectedLangilea.setNivelPermisos(nivelPermisos);
+                selectedLangilea.setTxatPermiso(txatPermisos);
 
                 if (LangileaKudeatzailea.editLangilea(selectedLangilea)) {
                         // Limpiar los campos de entrada después de la edición

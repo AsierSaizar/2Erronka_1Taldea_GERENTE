@@ -15,6 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.CheckBox?>
 <AnchorPane prefHeight="768.0" prefWidth="1320.0" style="-fx-background-color: #F8F8F8;" styleClass="tableBackColor" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.LangileaController">
     <children>
         <HBox fx:id="navBarContainer" prefHeight="74.0" prefWidth="1063.0" styleClass="navBar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
@@ -33,6 +34,7 @@
                 <TableColumn fx:id="pasahitzaColumn" maxWidth="250.0" minWidth="150.0" prefWidth="200.0" text="Pasahitza" />
                 <TableColumn fx:id="nivelPermisosColumn" maxWidth="100.0" minWidth="75.0" prefWidth="100.0" text="Nivel Permisos" />
                 <TableColumn fx:id="deleted_atColumn" maxWidth="128.79998779296875" minWidth="75.0" prefWidth="125.5999755859375" text="Deleted at" />
+                <TableColumn fx:id="txatPermisosColumn" maxWidth="100.0" minWidth="75.0" prefWidth="100.0" text="Txat baimena" />
             </columns>
         </TableView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#091725" height="198.0" layoutX="101.0" layoutY="510.0" stroke="BLACK" strokeType="INSIDE" width="383.0" />
@@ -69,16 +71,17 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Button>
-      <ComboBox fx:id="nivelPermisosComboBox" editable="false" layoutX="128.0" layoutY="657.0" prefWidth="150.0" promptText="Nivel de permisos" value="0">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="0" />
-               <String fx:value="1" />
-               <String fx:value="2" />
-            </FXCollections>
-         </items>
-      </ComboBox>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#091725" height="198.0" layoutX="576.0" layoutY="509.0" stroke="BLACK" strokeType="INSIDE" width="383.0" />
+        <ComboBox fx:id="nivelPermisosComboBox" editable="false" layoutX="128.0" layoutY="657.0" prefWidth="150.0" promptText="Nivel de permisos" value="0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="0" />
+                    <String fx:value="1" />
+                    <String fx:value="2" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <CheckBox fx:id="txatPermisosCheckBox" layoutX="128.0" layoutY="700.0" prefWidth="150.0" text="Txat Permisos"></CheckBox>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#091725" height="198.0" layoutX="576.0" layoutY="509.0" stroke="BLACK" strokeType="INSIDE" width="383.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#091725" height="198.0" layoutX="1046.0" layoutY="510.0" stroke="BLACK" strokeType="INSIDE" width="383.0" />
       <Label layoutX="609.0" layoutY="510.0" prefHeight="56.0" prefWidth="182.0" text="Eraldatu langilea" textFill="WHITE">
          <font>
@@ -99,6 +102,7 @@
             </FXCollections>
          </items>
       </ComboBox>
+        <CheckBox fx:id="txatPermisosEditCheckbox" layoutX="608.0" layoutY="670.0" prefWidth="150.0" text="Txat Permisos"></CheckBox>
       <Label layoutX="1143.0" layoutY="530.0" prefHeight="56.0" prefWidth="189.0" text="Ezabatu langilea" textFill="WHITE">
          <font>
             <Font size="23.0" />
