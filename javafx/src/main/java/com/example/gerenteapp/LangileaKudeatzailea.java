@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class LangileaKudeatzailea {
 
     public static void insertLangilea(Langilea langilea) {
-        String sql = "INSERT INTO langilea (izena, abizena, email, pasahitza, nivel_permisos) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO langilea (izena, abizena, email, pasahitza, nivel_permisos, txat_permisos) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -18,6 +18,7 @@ public class LangileaKudeatzailea {
             stmt.setString(3, langilea.getEmail());
             stmt.setString(4, langilea.getPasahitza());
             stmt.setInt(5, langilea.getNivelPermisos());
+            stmt.setBoolean(6, langilea.getTxatPermiso());
 
             // Ejecutar la sentencia SQL
             int rowsInserted = stmt.executeUpdate();
@@ -79,7 +80,7 @@ public class LangileaKudeatzailea {
         public static boolean editLangilea(Langilea selectedLangilea) {
 
         // SQL para actualizar el registro
-        String sql = "UPDATE langilea SET izena = ?, abizena = ?, email = ?, pasahitza = ?, nivel_permisos = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
+        String sql = "UPDATE langilea SET izena = ?, abizena = ?, email = ?, pasahitza = ?, nivel_permisos = ?, updated_at, txat_permisos = ? = CURRENT_TIMESTAMP WHERE id = ?";
 
         try (Connection conn = DBKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -91,6 +92,7 @@ public class LangileaKudeatzailea {
             stmt.setString(4, selectedLangilea.getPasahitza());
             stmt.setInt(5, selectedLangilea.getNivelPermisos());
             stmt.setInt(6, selectedLangilea.getId());
+            stmt.setBoolean(7, selectedLangilea.getTxatPermiso());
 
             // Ejecutar la sentencia SQL
             int rowsUpdated = stmt.executeUpdate();

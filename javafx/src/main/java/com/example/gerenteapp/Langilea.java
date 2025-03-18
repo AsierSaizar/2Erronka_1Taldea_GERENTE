@@ -8,9 +8,10 @@ public class Langilea {
         private String email;
         private int nivelPermisos;
         private String deleted_at;
+        private boolean txatPermiso;
 
         // Constructor
-        public Langilea(int id, String izena, String abizena, String pasahitza, String email, int nivelPermisos, String deleted_at) {
+        public Langilea(int id, String izena, String abizena, String pasahitza, String email, int nivelPermisos, String deleted_at, boolean txatPermiso) {
                 this.id = id;
                 this.izena = izena;
                 this.abizena = abizena;
@@ -18,9 +19,8 @@ public class Langilea {
                 this.email = email;
                 this.nivelPermisos = nivelPermisos;
                 this.deleted_at = deleted_at;
+                this.txatPermiso = txatPermiso;
         }
-
-
 
         // Getters y Setters
         public int getId() {
@@ -67,6 +67,10 @@ public class Langilea {
                 return nivelPermisos;
         }
 
+        public void setNivelPermisos(int nivelPermisos) {
+                this.nivelPermisos = nivelPermisos;
+        }
+
         public String getDeleted_at() {
                 return deleted_at;
         }
@@ -75,8 +79,12 @@ public class Langilea {
                 this.deleted_at = deleted_at;
         }
 
-        public void setNivelPermisos(int nivelPermisos) {
-                this.nivelPermisos = nivelPermisos;
+        public boolean getTxatPermiso() {
+                return txatPermiso;
+        }
+
+        public void setTxatPermiso(boolean txatPermiso) {
+                this.txatPermiso = txatPermiso;
         }
 
         @Override
@@ -88,6 +96,10 @@ public class Langilea {
                         ", pasahitza='" + pasahitza + '\'' +
                         ", email='" + email + '\'' +
                         ", nivelPermisos=" + nivelPermisos +
+                        ", deleted_at='" + deleted_at + '\'' +
+                        ", txatPermiso=" + txatPermiso +
                         '}';
         }
+
+
 }
