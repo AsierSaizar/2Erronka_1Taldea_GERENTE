@@ -27,6 +27,11 @@ public class NavBarController extends BaseController {
 
         private void loadScene(String fxmlFile, String title) {
                 try {
+                        boolean txatPermiso = langilea.getTxatPermiso();
+                        if (txatPermiso==false){
+
+                        }
+
                         //TODO NULL DATOR STAGE-ea
                         Stage stage = this.getUsingStage();
                         if (stage == null) {
@@ -85,6 +90,7 @@ public class NavBarController extends BaseController {
 
         // Botón para cambiar a txataView.fxml
         public void goToTxata(ActionEvent actionEvent) {
+
                 loadScene("TxataView.fxml", "Txata");
         }
 

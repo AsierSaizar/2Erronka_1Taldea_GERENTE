@@ -33,7 +33,6 @@ public class BaseController {
     public void navBarKargatu(Langilea langilea){
 
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("NavBar.fxml"));
             AnchorPane navBar = loader.load();
 

@@ -19,7 +19,7 @@
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToLangileak" prefHeight="26.0" prefWidth="305.0" styleClass="navbarBtn" text="Langileak" />
             <Button mnemonicParsing="false" onAction="#goToAlmazena" prefHeight="28.0" styleClass="navbarBtn" text="Almazena" />
             <Button mnemonicParsing="false" onAction="#goToMahaila" styleClass="navbarBtn" text="Mahaia" />
-            <Button mnemonicParsing="false" onAction="#goToTxata" styleClass="navbarBtn" text="Txata" />
+            <Button disable="true" mnemonicParsing="false" onAction="#goToTxata" styleClass="navbarBtn" text="Txata" />
          <Label prefHeight="70.0" prefWidth="400.0" text="GERENTEA" textFill="WHITE" underline="true">
             <font>
                <Font size="33.0" />
