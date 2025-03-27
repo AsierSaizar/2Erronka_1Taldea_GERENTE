@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginKudeatzailea {
+
+        // Modificar la consulta para permitir login a cualquier trabajador
         static Langilea erabiltzaileaKomprobatu(String email, String pasa) {
-                String query = "SELECT * FROM langilea WHERE email = ? AND pasahitza = ? and nivel_permisos = 0 and deleted_at IS NULL";
+                // Consulta modificada: eliminamos el filtro de nivel_permisos = 0
+                String query = "SELECT * FROM langilea WHERE email = ? AND pasahitza = ? and deleted_at IS NULL";
 
                 try (Connection conn = DBKonexioa.getKonexioa();
                      PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -27,7 +30,7 @@ public class LoginKudeatzailea {
                                         rs.getString("email"),
                                         rs.getInt("nivel_permisos"),
                                         rs.getString("deleted_at"),
-                                        rs.getBoolean("txat_permiso")
+                                        rs.getInt("txat_permiso")
                                 );
                         }
 

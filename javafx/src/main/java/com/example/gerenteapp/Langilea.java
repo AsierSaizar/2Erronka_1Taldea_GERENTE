@@ -8,10 +8,10 @@ public class Langilea {
         private String email;
         private int nivelPermisos;
         private String deleted_at;
-        private boolean txatPermiso;
+        private int txatPermiso; // Cambio de boolean a int
 
         // Constructor
-        public Langilea(int id, String izena, String abizena, String pasahitza, String email, int nivelPermisos, String deleted_at, boolean txatPermiso) {
+        public Langilea(int id, String izena, String abizena, String pasahitza, String email, int nivelPermisos, String deleted_at, int txatPermiso) {
                 this.id = id;
                 this.izena = izena;
                 this.abizena = abizena;
@@ -79,11 +79,11 @@ public class Langilea {
                 this.deleted_at = deleted_at;
         }
 
-        public boolean getTxatPermiso() {
+        public int getTxatPermiso() {
                 return txatPermiso;
         }
 
-        public void setTxatPermiso(boolean txatPermiso) {
+        public void setTxatPermiso(int txatPermiso) {
                 this.txatPermiso = txatPermiso;
         }
 
@@ -100,6 +100,4 @@ public class Langilea {
                         ", txatPermiso=" + txatPermiso +
                         '}';
         }
-
-
 }

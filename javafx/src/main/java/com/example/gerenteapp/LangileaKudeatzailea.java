@@ -1,110 +1,124 @@
 package com.example.gerenteapp;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class LangileaKudeatzailea {
 
-    public static void insertLangilea(Langilea langilea) {
-        String sql = "INSERT INTO langilea (izena, abizena, email, pasahitza, nivel_permisos, txat_permisos) VALUES (?, ?, ?, ?, ?, ?)";
+    public static boolean insertLangilea(Langilea langilea) {
+        String sql = "INSERT INTO langilea (izena, abizena, pasahitza, email, nivel_permisos, txat_permiso) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Establecer los parámetros del PreparedStatement con los valores del objeto Langilea
             stmt.setString(1, langilea.getIzena());
             stmt.setString(2, langilea.getAbizena());
-            stmt.setString(3, langilea.getEmail());
-            stmt.setString(4, langilea.getPasahitza());
+            stmt.setString(3, langilea.getPasahitza());
+            stmt.setString(4, langilea.getEmail());
             stmt.setInt(5, langilea.getNivelPermisos());
-            stmt.setBoolean(6, langilea.getTxatPermiso());
+            stmt.setInt(6, langilea.getTxatPermiso());
 
-            // Ejecutar la sentencia SQL
             int rowsInserted = stmt.executeUpdate();
 
             if (rowsInserted > 0) {
-                System.out.println("¡Langilea creado exitosamente!");
+                System.out.println("Inserción exitosa");
+                return true;
+            } else {
+                System.out.println("Error: No se insertó ninguna fila.");
+                return false;
             }
-
         } catch (SQLException e) {
-            System.err.println("Errorea langilea sortzerakoan: " + e.getMessage());
+            System.err.println("Error al insertar langilea: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
-        public static boolean deleteLangilea(String id) {
-                try (Connection connection = DBKonexioa.getKonexioa()) {
-                        String sql = "UPDATE langilea SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?";
-                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                        preparedStatement.setInt(1, Integer.parseInt(id));
 
-                        int rowsAffected = preparedStatement.executeUpdate();
-
-                        if (rowsAffected > 0) {
-                                return true;
-                        } else {
-                                System.out.println("No se encontró un langilea con ese ID.");
-                                return false;
-                        }
-                } catch (SQLException e) {
-                        System.err.println("Error al eliminar langilea: " + e.getMessage());
-                } catch (NumberFormatException e) {
-                        System.err.println("ID no válido.");
-                }
-                return false;
+    public static boolean editLangilea(Langilea langilea) {
+        // Validar el ID del Langilea
+        if (langilea.getId() <= 0) {
+            System.err.println("El ID no es válido para actualizar.");
+            return false;
         }
 
-        public static boolean berreskuratuLangilea(String id) {
-                try (Connection connection = DBKonexioa.getKonexioa()) {
-                        String sql = "UPDATE langilea SET deleted_at = null WHERE id = ?";
-                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                        preparedStatement.setInt(1, Integer.parseInt(id));
+        // Verificar que los valores de nivel de permisos y chat no sean null
 
-                        int rowsAffected = preparedStatement.executeUpdate();
+        // Consulta SQL de actualización
+        String query = "UPDATE 5_erronka1.langilea SET izena = ?, abizena = ?, email = ?, pasahitza = ?, " +
+                "nivel_permisos = ?, txat_permiso = ? WHERE id = ?";
 
-                        if (rowsAffected > 0) {
-                                return true;
-                        } else {
-                                System.out.println("No se encontró un langilea con ese ID.");
-                                return false;
-                        }
-                } catch (SQLException e) {
-                        System.err.println("Error al eliminar langilea: " + e.getMessage());
-                } catch (NumberFormatException e) {
-                        System.err.println("ID no válido.");
-                }
+        try (Connection connection = DBKonexioa.getKonexioa();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            // Verificar la conexión a la base de datos
+            if (connection == null) {
+                System.err.println("No se pudo conectar a la base de datos.");
                 return false;
-        }
+            }
 
+            // Asignar los parámetros a la consulta
+            preparedStatement.setString(1, langilea.getIzena());
+            preparedStatement.setString(2, langilea.getAbizena());
+            preparedStatement.setString(3, langilea.getEmail());
+            preparedStatement.setString(4, langilea.getPasahitza());
+            preparedStatement.setInt(5, langilea.getNivelPermisos());
+            preparedStatement.setInt(6, langilea.getTxatPermiso());
+            preparedStatement.setInt(7, langilea.getId());
 
-        public static boolean editLangilea(Langilea selectedLangilea) {
+            // Mostrar consulta SQL y los valores de los parámetros para depuración
+            System.out.println("Ejecutando SQL: " + query);
+            System.out.println("Con valores: " + langilea.getIzena() + ", " + langilea.getAbizena() + ", " +
+                    langilea.getEmail() + ", " + langilea.getPasahitza() + ", " +
+                    langilea.getNivelPermisos() + ", " + langilea.getTxatPermiso() + ", ID: " + langilea.getId());
 
-        // SQL para actualizar el registro
-        String sql = "UPDATE langilea SET izena = ?, abizena = ?, email = ?, pasahitza = ?, nivel_permisos = ?, updated_at, txat_permisos = ? = CURRENT_TIMESTAMP WHERE id = ?";
+            // Ejecutar la actualización
+            int rowsAffected = preparedStatement.executeUpdate();
 
-        try (Connection conn = DBKonexioa.getKonexioa();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            // Establecer los parámetros del PreparedStatement
-            stmt.setString(1, selectedLangilea.getIzena());
-            stmt.setString(2, selectedLangilea.getAbizena());
-            stmt.setString(3, selectedLangilea.getEmail());
-            stmt.setString(4, selectedLangilea.getPasahitza());
-            stmt.setInt(5, selectedLangilea.getNivelPermisos());
-            stmt.setInt(6, selectedLangilea.getId());
-            stmt.setBoolean(7, selectedLangilea.getTxatPermiso());
-
-            // Ejecutar la sentencia SQL
-            int rowsUpdated = stmt.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                System.out.println("¡Langilea actualizado exitosamente!");
+            // Verificar si la actualización afectó filas
+            if (rowsAffected > 0) {
+                System.out.println("Langilea actualizado correctamente. Filas afectadas: " + rowsAffected);
                 return true;
+            } else {
+                System.err.println("No se actualizó ninguna fila.");
+                return false;
             }
 
         } catch (SQLException e) {
-            System.err.println("Errorea langilea eguneratzerakoan: " + e.getMessage());
+            // Capturar errores y mostrarlos en consola
+            System.err.println("Error al actualizar langilea: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
-        return false;
+    }
+
+
+
+
+
+
+    public static boolean deleteLangilea(String id) {
+        String query = "DELETE FROM 5_erronka1.langilea WHERE id = ?";
+        try (Connection connection = DBKonexioa.getKonexioa();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, id);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Error deleting langilea: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean berreskuratuLangilea(String id) {
+        String query = "UPDATE 5_erronka1.langilea SET deleted_at = NULL WHERE id = ?";
+        try (Connection connection = DBKonexioa.getKonexioa();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, id);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Error restoring langilea: " + e.getMessage());
+            return false;
+        }
     }
 }

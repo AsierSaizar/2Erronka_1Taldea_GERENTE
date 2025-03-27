@@ -11,21 +11,20 @@
 <AnchorPane prefHeight="400.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gerenteapp.NavBarController">
     <ButtonBar layoutY="7.0" prefHeight="70.0" prefWidth="947.0">
         <buttons>
-         <ImageView fitHeight="64.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../../../images/saboreame_sin_background.png" />
-            </image>
-         </ImageView>
+            <ImageView fitHeight="64.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../../images/saboreame_sin_background.png" />
+                </image>
+            </ImageView>
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToLangileak" prefHeight="26.0" prefWidth="305.0" styleClass="navbarBtn" text="Langileak" />
             <Button mnemonicParsing="false" onAction="#goToAlmazena" prefHeight="28.0" styleClass="navbarBtn" text="Almazena" />
             <Button mnemonicParsing="false" onAction="#goToMahaila" styleClass="navbarBtn" text="Mahaia" />
-            <Button mnemonicParsing="false" onAction="#goToTxata" styleClass="navbarBtn" text="Txata" />
-         <Label prefHeight="70.0" prefWidth="400.0" text="GERENTEA" textFill="WHITE" underline="true">
-            <font>
-               <Font size="33.0" />
-            </font>
-         </Label>
-
+            <Button fx:id="btnTxata" disable="false" mnemonicParsing="false" onAction="#goToTxata" styleClass="navbarBtn" text="Txata"/>
+            <Label prefHeight="70.0" prefWidth="400.0" text="GERENTEA" textFill="WHITE" underline="true">
+                <font>
+                    <Font size="33.0" />
+                </font>
+            </Label>
         </buttons>
     </ButtonBar>
 </AnchorPane>

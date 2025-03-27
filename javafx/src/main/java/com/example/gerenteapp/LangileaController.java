@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -37,22 +38,32 @@ public class LangileaController extends BaseController {
 
         @FXML
         private TableColumn<Langilea, Integer> nivelPermisosColumn;
+
         @FXML
         private TableColumn<Langilea, Integer> deleted_atColumn;
 
         @FXML
-        private TableColumn<Langilea, Boolean> txatPermisosColumn;
+        private TableColumn<Langilea, Integer> txatPermisosColumn;
 
         private ObservableList<Langilea> langileakData = FXCollections.observableArrayList();
 
         @FXML
         private TextField deleted_atEditField;
 
-
-
+        @FXML
+        private Button btnSortu;
 
         @FXML
         public void initialize() throws IOException {
+                assert deleted_atEditField != null : "El campo deleted_atEditField no ha sido inyectado correctamente";
+                deleted_atEditField.setText("some text");
+
+                if (btnSortu == null) {
+                        System.err.println("Error: El botón 'btnSortu' no está conectado en el FXML.");
+                } else {
+                        System.out.println("El botón 'btnSortu' está correctamente vinculado.");
+                }
+
                 idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
                 izenaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
                 abizenaColumn.setCellValueFactory(new PropertyValueFactory<>("abizena"));
@@ -60,40 +71,31 @@ public class LangileaController extends BaseController {
                 pasahitzaColumn.setCellValueFactory(new PropertyValueFactory<>("pasahitza"));
                 nivelPermisosColumn.setCellValueFactory(new PropertyValueFactory<>("nivelPermisos"));
                 deleted_atColumn.setCellValueFactory(new PropertyValueFactory<>("deleted_at"));
-                txatPermisosColumn.setCellValueFactory(new PropertyValueFactory<>("txatPermisos"));
+                txatPermisosColumn.setCellValueFactory(new PropertyValueFactory<>("txatPermiso"));
 
                 loadLangileakData();
-                // Configurar columnas (asegúrate de que estos métodos coincidan con los atributos de tu clase Langilea)
-                idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-                izenaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
 
-                // Listener para detectar la selección en la tabla
+                nivelPermisosComboBoxEdit.setItems(FXCollections.observableArrayList(0, 1, 2));
+                txatPermisosEditComboBox.setItems(FXCollections.observableArrayList(0, 1));
+
                 langileakTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
                         if (newSelection != null) {
-                                // Llenar los TextField con los datos seleccionados
                                 IdDeleteField.setText(String.valueOf(newSelection.getId()));
                                 izenaDeleteField.setText(newSelection.getIzena());
-
-                                //Edit form
                                 izenaEditField.setText(newSelection.getIzena());
                                 abizenaEditField.setText(newSelection.getAbizena());
                                 emailaEditField.setText(newSelection.getEmail());
                                 pasahitzaEditField.setText(newSelection.getPasahitza());
                                 nivelPermisosComboBoxEdit.getSelectionModel().select(newSelection.getNivelPermisos());
-                                txatPermisosEditCheckbox.setSelected(newSelection.getTxatPermiso());
-
+                                txatPermisosEditComboBox.getSelectionModel().select(newSelection.getTxatPermiso());
                                 deleted_atEditField.setText(String.valueOf(newSelection.getDeleted_at()));
                         }
                 });
-
-
         }
 
         private void loadLangileakData() {
                 try (Connection connection = DBKonexioa.getKonexioa()) {
-                        // Limpiar la lista antes de cargar nuevos datos
                         langileakData.clear();
-
                         Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM 5_erronka1.langilea");
 
@@ -106,17 +108,17 @@ public class LangileaController extends BaseController {
                                         resultSet.getString("email"),
                                         resultSet.getInt("nivel_permisos"),
                                         resultSet.getString("deleted_at"),
-                                        resultSet.getBoolean("txat_permiso")
+                                        resultSet.getInt("txat_permiso")
                                 ));
                         }
 
                         langileakTable.setItems(langileakData);
                 } catch (SQLException e) {
-                        System.err.println("Error loading langileak data: " + e.getMessage());
+                        System.err.println("Error al cargar los datos de langileak: " + e.getMessage());
+                        e.printStackTrace();  // Imprime el detalle completo de la excepción
                 }
         }
 
-        // Form gehitu langilea
         @FXML
         private TextField izenaField;
 
@@ -130,68 +132,68 @@ public class LangileaController extends BaseController {
         private TextField pasahitzaField;
 
         @FXML
-        private ComboBox nivelPermisosComboBox;
+        private ComboBox<Integer> nivelPermisosComboBox;
 
         @FXML
-        private CheckBox txatPermisosCheckbox;
-
+        private ComboBox<Integer> txatPermisosComboBox;
 
         public void createLangilea(ActionEvent actionEvent) {
-                // Obtener los valores de los campos
                 String izena = izenaField.getText().trim();
                 String abizena = abizenaField.getText().trim();
                 String emaila = emailaField.getText().trim();
                 String pasahitza = pasahitzaField.getText().trim();
-                boolean txatPermisos = txatPermisosCheckbox.isSelected();
+                int txatPermisos;
                 int nivelPermisos;
 
                 try {
-                        nivelPermisos = Integer.parseInt((String) nivelPermisosComboBox.getValue());
-
-                } catch (NumberFormatException e) {
-                        System.out.println("El campo Nivel permisos debe ser un número.");
+                        nivelPermisos = nivelPermisosComboBox.getValue() != null ? nivelPermisosComboBox.getValue() : 1;
+                        txatPermisos = txatPermisosComboBox.getValue() != null ? txatPermisosComboBox.getValue() : 0;
+                } catch (NullPointerException e) {
+                        System.out.println("Error: Selecciona un nivel de permisos y un permiso de chat.");
                         return;
                 }
 
-                // Validar que los campos no estén vacíos
                 if (izena.isEmpty() || abizena.isEmpty() || emaila.isEmpty() || pasahitza.isEmpty()) {
-                        System.out.println("Por favor, llena todos los campos.");
+                        System.out.println("Error: Todos los campos deben estar llenos.");
                         return;
                 }
 
-                // Crear el objeto Langilea
-                Langilea langilea = new Langilea(0, izena, abizena, pasahitza, emaila, nivelPermisos, null, txatPermisos );
+                // Mensajes de depuración
+                System.out.println("Datos recogidos para inserción:");
+                System.out.println("Izena: " + izena);
+                System.out.println("Abizena: " + abizena);
+                System.out.println("Emaila: " + emaila);
+                System.out.println("Pasahitza: " + pasahitza);
+                System.out.println("Nivel Permisos: " + nivelPermisos);
+                System.out.println("Txat Permisos: " + txatPermisos);
 
-                // Llamar al método para insertar el objeto en la base de datos
-                LangileaKudeatzailea.insertLangilea(langilea);
+                Langilea langilea = new Langilea(0, izena, abizena, pasahitza, emaila, nivelPermisos, null, txatPermisos);
+                boolean success = LangileaKudeatzailea.insertLangilea(langilea);
 
-                // Limpiar los campos
+                if (success) {
+                        System.out.println("Langilea creado correctamente.");
+                } else {
+                        System.out.println("Error al crear el Langilea.");
+                }
+
                 clearInputFields();
-
-                // Recargar los datos de la tabla
                 loadLangileakData();
         }
 
-
-        // Método para limpiar los campos de texto
         private void clearInputFields() {
                 izenaField.clear();
                 abizenaField.clear();
                 emailaField.clear();
                 pasahitzaField.clear();
                 nivelPermisosComboBox.getSelectionModel().selectFirst();
-                txatPermisosCheckbox.setSelected(false);
-
+                txatPermisosComboBox.getSelectionModel().clearSelection();
         }
 
-
-        //Form delete langilea
         @FXML
         private TextField izenaDeleteField;
 
         @FXML
         private TextField IdDeleteField;
-
 
         public void deleteLangilea(ActionEvent actionEvent) {
                 String id = IdDeleteField.getText();
@@ -202,15 +204,12 @@ public class LangileaController extends BaseController {
                 }
                 if (LangileaKudeatzailea.deleteLangilea(id)) {
                         System.out.println("Langilea eliminado correctamente.");
-                        // Actualizar los datos en la tabla
                         loadLangileakData();
-                        // Limpiar los TextField
                         IdDeleteField.clear();
                         izenaDeleteField.clear();
                 }
-
-
         }
+
         public void berreskuratuLangilea(ActionEvent actionEvent) {
                 String id = IdDeleteField.getText();
 
@@ -220,18 +219,12 @@ public class LangileaController extends BaseController {
                 }
                 if (LangileaKudeatzailea.berreskuratuLangilea(id)) {
                         System.out.println("Langilea berreskuratuta correctamente.");
-                        // Actualizar los datos en la tabla
                         loadLangileakData();
-                        // Limpiar los TextField
                         IdDeleteField.clear();
                         izenaDeleteField.clear();
                 }
-
-
         }
 
-
-        //Form Edit langilea
         @FXML
         private TextField izenaEditField;
         @FXML
@@ -241,35 +234,46 @@ public class LangileaController extends BaseController {
         @FXML
         private TextField pasahitzaEditField;
         @FXML
-        private ComboBox nivelPermisosComboBoxEdit;
+        private ComboBox<Integer> txatPermisosEditComboBox;
         @FXML
-        private CheckBox txatPermisosEditCheckbox;
+        private ComboBox<Integer> nivelPermisosComboBoxEdit;
 
-
+        @FXML
         public void editLangilea(ActionEvent actionEvent) {
-                // Validar que haya un registro seleccionado en la tabla
+                // Obtención del Langilea seleccionado
                 Langilea selectedLangilea = langileakTable.getSelectionModel().getSelectedItem();
+
                 if (selectedLangilea == null) {
                         System.out.println("Por favor, selecciona un registro para editar.");
                         return;
                 }
 
-                // Obtener los valores de los TextFields (si están vacíos, usar los valores actuales del objeto seleccionado)
+                // Obtener los valores de los campos de texto y ComboBox
                 String izena = izenaEditField.getText().trim().isEmpty() ? selectedLangilea.getIzena() : izenaEditField.getText().trim();
                 String abizena = abizenaEditField.getText().trim().isEmpty() ? selectedLangilea.getAbizena() : abizenaEditField.getText().trim();
                 String emaila = emailaEditField.getText().trim().isEmpty() ? selectedLangilea.getEmail() : emailaEditField.getText().trim();
                 String pasahitza = pasahitzaEditField.getText().trim().isEmpty() ? selectedLangilea.getPasahitza() : pasahitzaEditField.getText().trim();
-                boolean txatPermisos = txatPermisosEditCheckbox.isSelected();
-                int nivelPermisos;
 
-                try {
-                        nivelPermisos = Integer.parseInt((String) nivelPermisosComboBoxEdit.getValue());
-                } catch (NumberFormatException e) {
-                        System.out.println("El campo Nivel permisos debe ser un número.");
+                // Obtener los valores seleccionados en los ComboBox
+                Integer nivelPermisos = nivelPermisosComboBoxEdit.getSelectionModel().getSelectedItem();
+                Integer txatPermisos = txatPermisosEditComboBox.getSelectionModel().getSelectedItem();
+
+                // Verificar que los valores de los ComboBox no sean null
+                if (nivelPermisos == null || txatPermisos == null) {
+                        System.out.println("Error: Nivel de permisos o permiso de chat no seleccionados.");
                         return;
                 }
 
-                // Actualizar los datos en el objeto
+                // Verificar que los campos no estén vacíos antes de actualizar
+                System.out.println("Valores a actualizar: ");
+                System.out.println("Izena: " + izena);
+                System.out.println("Abizena: " + abizena);
+                System.out.println("Emaila: " + emaila);
+                System.out.println("Pasahitza: " + pasahitza);
+                System.out.println("NivelPermisos: " + nivelPermisos);
+                System.out.println("TxatPermiso: " + txatPermisos);
+
+                // Actualizar los valores en el objeto seleccionado
                 selectedLangilea.setIzena(izena);
                 selectedLangilea.setAbizena(abizena);
                 selectedLangilea.setEmail(emaila);
@@ -277,22 +281,26 @@ public class LangileaController extends BaseController {
                 selectedLangilea.setNivelPermisos(nivelPermisos);
                 selectedLangilea.setTxatPermiso(txatPermisos);
 
-                if (LangileaKudeatzailea.editLangilea(selectedLangilea)) {
-                        // Limpiar los campos de entrada después de la edición
+                // Llamar al método de la clase LangileaKudeatzailea para actualizar en la base de datos
+                boolean success = LangileaKudeatzailea.editLangilea(selectedLangilea);
+
+                if (success) {
+                        System.out.println("Langilea actualizado correctamente.");
+
+                        // Limpiar los campos de edición después de actualizar
                         izenaEditField.clear();
                         abizenaEditField.clear();
                         emailaEditField.clear();
                         pasahitzaEditField.clear();
                         nivelPermisosComboBoxEdit.getSelectionModel().selectFirst();
+                        txatPermisosEditComboBox.getSelectionModel().selectFirst();
 
-                        // Recargar los datos de la tabla
+                        // Actualizar la tabla y recargar los datos
+                        langileakTable.refresh();
                         loadLangileakData();
                 } else {
-                        System.out.println("Errorea langilea eguneratzerakoan:");
+                        System.out.println("Error al actualizar el Langilea.");
                 }
-
-
         }
-
 
 }

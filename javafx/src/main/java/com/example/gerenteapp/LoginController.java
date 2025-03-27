@@ -15,7 +15,6 @@ public class LoginController extends BaseController {
         @FXML
         private TextField pasa;
 
-
         @FXML
         protected void loginBotoia() throws IOException {
                 String email = emai.getText();
@@ -40,7 +39,6 @@ public class LoginController extends BaseController {
                                 this.getUsingStage().setTitle("Langilea Table");
                                 this.getUsingStage().setScene(langileaScene);
 
-
                                 // Asegurar que el diseño se recalcula cuando se muestra la ventana
                                 this.getUsingStage().show();
                                 this.getUsingStage().getScene().getRoot().layout();
@@ -52,11 +50,6 @@ public class LoginController extends BaseController {
                 }
         }
 
-
-
-
-
-
         private void mezuaPantailaratu(String izena, String mezuLuzea, Alert.AlertType mota) {
                 Alert alerta = new Alert(mota);
                 alerta.setTitle(izena);
@@ -64,6 +57,4 @@ public class LoginController extends BaseController {
                 alerta.setContentText(mezuLuzea); // Mezu printzipala
                 alerta.showAndWait(); // mezua pantailaratu eta itxi
         }
-
-
 }

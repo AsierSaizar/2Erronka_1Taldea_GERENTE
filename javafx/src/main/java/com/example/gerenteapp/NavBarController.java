@@ -1,14 +1,18 @@
 package com.example.gerenteapp;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class NavBarController extends BaseController {
+
+        private Langilea langilea;
 
         public Langilea getLangilea() {
                 return langilea;
@@ -16,22 +20,27 @@ public class NavBarController extends BaseController {
 
         public void setLangilea(Langilea langilea) {
                 this.langilea = langilea;
+                // Llamar a actualizarEstadoTxata después de establecer un Langilea
+                actualizarEstadoTxata();
         }
-
-        private Langilea langilea;
 
         public NavBarController() {
                 super();
         }
 
+        @FXML
+        private Button btnTxata;
+
+        // Método para actualizar el estado del botón "Txata"
+        private void actualizarEstadoTxata() {
+                if (btnTxata != null && langilea != null) {
+                        int txatPermiso = langilea.getTxatPermiso();
+                        btnTxata.setDisable(txatPermiso == 0); // Si es 0, deshabilita el botón
+                }
+        }
 
         private void loadScene(String fxmlFile, String title) {
                 try {
-                        boolean txatPermiso = langilea.getTxatPermiso();
-                        if (txatPermiso==false){
-
-                        }
-
                         //TODO NULL DATOR STAGE-ea
                         Stage stage = this.getUsingStage();
                         if (stage == null) {
@@ -53,10 +62,9 @@ public class NavBarController extends BaseController {
                                 ((BaseController) controller).setStage(stage);
                                 ((BaseController) controller).navBarKargatu(this.langilea);
 
-                                if(controller instanceof TxataController){
+                                if (controller instanceof TxataController) {
                                         ((TxataController) controller).setLangilea(this.langilea);
                                 }
-
                         }
 
                         // Actualizar la escena y el título del Stage
@@ -90,7 +98,6 @@ public class NavBarController extends BaseController {
 
         // Botón para cambiar a txataView.fxml
         public void goToTxata(ActionEvent actionEvent) {
-
                 loadScene("TxataView.fxml", "Txata");
         }
 
@@ -107,6 +114,4 @@ public class NavBarController extends BaseController {
                 alert.setContentText(message);
                 alert.showAndWait();
         }
-
-
 }
