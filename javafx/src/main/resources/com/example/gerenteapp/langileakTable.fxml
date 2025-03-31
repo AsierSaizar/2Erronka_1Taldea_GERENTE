@@ -46,7 +46,7 @@
         <TextField fx:id="abizenaField" layoutX="300.0" layoutY="582.0" promptText="Abizena" />
         <TextField fx:id="emailaField" layoutX="129.0" layoutY="617.0" promptText="Emaila" />
         <TextField fx:id="pasahitzaField" layoutX="300.0" layoutY="617.0" promptText="Pasahitza" />
-        <ComboBox fx:id="nivelPermisosComboBox" editable="false" layoutX="128.0" layoutY="657.0" prefWidth="150.0" promptText="Nivel de permisos" value="0">
+        <ComboBox fx:id="nivelPermisosComboBox" editable="false" layoutX="128.0" layoutY="657.0" prefWidth="150.0" promptText="Nivel de permisos">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Integer fx:value="0" />
@@ -55,7 +55,7 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <ComboBox fx:id="txatPermisosComboBox" editable="false" layoutX="300.0" layoutY="655.0" prefWidth="150.0" promptText="Txat baimena" value="0">
+        <ComboBox fx:id="txatPermisosComboBox" editable="false" layoutX="300.0" layoutY="655.0" prefWidth="150.0" promptText="Txat baimena">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Integer fx:value="0" />
@@ -77,7 +77,7 @@
         <TextField fx:id="abizenaEditField" layoutX="780.0" layoutY="581.0" promptText="Abizena" />
         <TextField fx:id="emailaEditField" layoutX="609.0" layoutY="616.0" promptText="Emaila" />
         <TextField fx:id="pasahitzaEditField" layoutX="780.0" layoutY="616.0" promptText="Pasahitza" />
-        <ComboBox fx:id="nivelPermisosComboBoxEdit" editable="false" layoutX="608.0" layoutY="655.0" prefWidth="150.0" promptText="Nivel de permisos" value="0">
+        <ComboBox fx:id="nivelPermisosComboBoxEdit" editable="false" layoutX="608.0" layoutY="655.0" prefWidth="150.0" promptText="Nivel de permisos">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Integer fx:value="0" />
@@ -86,7 +86,7 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <ComboBox fx:id="txatPermisosEditComboBox" editable="false" layoutX="780.0" layoutY="655.0" prefWidth="150.0" promptText="Txat baimena" value="0">
+        <ComboBox fx:id="txatPermisosEditComboBox" editable="false" layoutX="780.0" layoutY="655.0" prefWidth="150.0" promptText="Txat baimena">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Integer fx:value="0" />
