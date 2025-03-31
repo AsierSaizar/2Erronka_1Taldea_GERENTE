@@ -43,9 +43,16 @@ public class TxataController extends BaseController {
                 String message = messageField.getText();
                 if (!message.isEmpty()) {
                         try {
+                                // Cifrar el mensaje
                                 String encryptedMessage = AESUtil.encrypt(this.Izena + "> " + message);
+                                System.out.println("Mensaje cifrado: " + encryptedMessage); // Debug
+
+                                // Descifrar para verificar que funciona correctamente
+                                String decryptedMessage = AESUtil.decrypt(encryptedMessage);
+                                System.out.println("Mensaje descifrado: " + decryptedMessage); // Debug
+
                                 chatClient.sendMessage(encryptedMessage);
-                                displayMessage(this.Izena + "> " + message, true); // Mostrar mensaje en claro para el emisor
+                                displayMessage(this.Izena + "> " + message, true); // Mostrar mensaje sin cifrar al emisor
                                 messageField.clear();
                         } catch (Exception e) {
                                 e.printStackTrace();
@@ -61,6 +68,7 @@ public class TxataController extends BaseController {
         public void displayMessage(String encryptedMessage, boolean isUserMessage) {
                 Platform.runLater(() -> {
                         try {
+                                // Descifrar el mensaje
                                 String message = AESUtil.decrypt(encryptedMessage);
                                 Text text = new Text(message);
                                 text.setFill(Color.BLACK);
