@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import java.util.Base64;
 
 public class TxataController extends BaseController {
 
@@ -68,6 +69,12 @@ public class TxataController extends BaseController {
         public void displayMessage(String encryptedMessage, boolean isUserMessage) {
                 Platform.runLater(() -> {
                         try {
+                                // Verificar si el mensaje es Base64 antes de descifrar
+                                if (!isBase64(encryptedMessage)) {
+                                        System.err.println("Mensaje recibido no es Base64 válido: " + encryptedMessage);
+                                        return;
+                                }
+
                                 // Descifrar el mensaje
                                 String message = AESUtil.decrypt(encryptedMessage);
                                 Text text = new Text(message);
@@ -98,5 +105,14 @@ public class TxataController extends BaseController {
                                 e.printStackTrace();
                         }
                 });
+        }
+
+        private boolean isBase64(String str) {
+                try {
+                        Base64.getDecoder().decode(str);
+                        return true;
+                } catch (IllegalArgumentException e) {
+                        return false;
+                }
         }
 }
