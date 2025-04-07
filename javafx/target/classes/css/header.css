@@ -17,7 +17,7 @@
 .tableBackColor{
     -fx-background-color: White;
 }
-.textFieldTxat{
+.textFieldTxat {
     -fx-border: 1px;
-    --border-color: 232, 158, 71;
+    -fx-border-color: rgb(232, 158, 71); /* Usar el formato rgb */
 }

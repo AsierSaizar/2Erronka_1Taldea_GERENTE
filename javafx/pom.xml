@@ -55,7 +55,15 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- Dependencia para JSON -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version><!-- O la última versión disponible -->
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
