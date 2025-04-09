@@ -11,8 +11,8 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class ChatClient {
@@ -22,12 +22,17 @@ public class ChatClient {
         private TxataController txataController;
         private List<String> messageHistory = new ArrayList<>();
         private volatile boolean isConnected = false;
+        private String username;  // Variable para almacenar el nombre de usuario
         private static final int CONNECTION_TIMEOUT = 5000; // 5 segundos de timeout
         private static final String SERVER_IP = "192.168.115.188";
         private static final int SERVER_PORT = 5555;
 
         public ChatClient(TxataController txataController) {
                 this.txataController = txataController;
+        }
+
+        public void setUsername(String username) {
+                this.username = username;  // Asigna el nombre de usuario
         }
 
         public void connect() {
@@ -57,7 +62,7 @@ public class ChatClient {
 
                         } catch (SocketTimeoutException e) {
                                 System.err.println("⌛ Timeout al conectar con el servidor después de " +
-                                        (CONNECTION_TIMEOUT/1000) + " segundos");
+                                        (CONNECTION_TIMEOUT / 1000) + " segundos");
                                 showConnectionError("El servidor no responde. Verifica que esté en ejecución.");
                         } catch (ConnectException e) {
                                 System.err.println("❌ Conexión rechazada por el servidor: " + e.getMessage());
@@ -104,18 +109,18 @@ public class ChatClient {
         }
 
         private void requestMessageHistory() {
-                if (txataController != null && txataController.getIzena() != null) {
+                if (txataController != null && username != null) {
                         try {
                                 JSONObject request = new JSONObject();
                                 request.put("action", "get_history");
-                                request.put("usuario", txataController.getIzena());
+                                request.put("usuario", username);
 
                                 String encryptedRequest = AESUtil.encrypt(request.toString());
                                 String base64Request = Base64.getEncoder().encodeToString(
                                         encryptedRequest.getBytes(StandardCharsets.UTF_8));
 
                                 writer.println(base64Request);
-                                System.out.println("📥 Solicitando historial de mensajes para: " + txataController.getIzena());
+                                System.out.println("📥 Solicitando historial de mensajes para: " + username);
                         } catch (Exception e) {
                                 System.err.println("❌ Error al solicitar historial: " + e.getMessage());
                         }

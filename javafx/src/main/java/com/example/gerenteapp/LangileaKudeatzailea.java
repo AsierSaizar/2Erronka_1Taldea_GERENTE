@@ -1,5 +1,6 @@
 package com.example.gerenteapp;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -7,13 +8,24 @@ import java.time.format.DateTimeFormatter;
 
 public class LangileaKudeatzailea {
 
-    private static void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+    private static boolean isTestMode = false;
+
+    // Método para activar o desactivar el modo de prueba
+    public static void setTestMode(boolean isTestMode) {
+        LangileaKudeatzailea.isTestMode = isTestMode;
     }
+
+    public static void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+        if (System.getProperty("test.env") != null) return; // No mostrar nada si está en test
+
+        Platform.runLater(() -> {
+            Alert alert = new Alert(tipo);
+            alert.setTitle(titulo);
+            alert.setContentText(mensaje);
+            alert.showAndWait();
+        });
+    }
+
 
     public static boolean insertLangilea(Langilea langilea) {
         String sql = "INSERT INTO langilea (izena, abizena, pasahitza, email, nivel_permisos, txat_permiso) VALUES (?, ?, ?, ?, ?, ?)";
@@ -135,6 +147,39 @@ public class LangileaKudeatzailea {
         } catch (SQLException e) {
             mostrarAlerta("Error en restauración", "Error restaurando langilea: " + e.getMessage(), Alert.AlertType.ERROR);
             return false;
+        }
+    }
+
+    public static Langilea getLangileaById(String id) {
+        String query = "SELECT * FROM langilea WHERE id = ? AND deleted_at IS NULL"; // Asumimos un soft delete
+        try (Connection conn = DBKonexioa.getKonexioa();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, id);  // Establecemos el ID en la consulta
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {  // Si encontramos un resultado
+                    // Crear un nuevo objeto Langilea con los datos obtenidos
+                    Langilea langilea = new Langilea(
+                            rs.getInt("id"),
+                            rs.getString("izena"),
+                            rs.getString("abizena"),
+                            rs.getString("pasahitza"),
+                            rs.getString("email"),
+                            rs.getInt("nivel_permisos"),
+                            rs.getString("txat_permiso"),
+                            rs.getInt("otros_campos") // Si tienes otros campos, añádelos aquí
+                    );
+                    return langilea;
+                } else {
+                    return null; // Si no se encuentra un Langilea con ese ID
+                }
+            }
+        } catch (SQLException e) {
+            // Mostrar alerta si ocurre un error con la base de datos
+            mostrarAlerta("Error en búsqueda", "Error al obtener langilea por ID: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
+            return null;
         }
     }
 }

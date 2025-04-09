@@ -14,8 +14,9 @@ public class AESUtil {
     private static final String AES_ALGORITHM_GCM = "AES/GCM/NoPadding";
     private static final int IV_LENGTH = 12;
     private static final int TAG_LENGTH = 16;
-    private static final String PASSPHRASE = "mySecurePassphrase123!";
+    private static final String PASSPHRASE = "mySecurePassphrase123!";  // Cambia esta clave si es necesario
 
+    // Cifrar un mensaje
     public static String encrypt(String plainText) throws Exception {
         byte[] iv = new byte[IV_LENGTH];
         SecureRandom secureRandom = new SecureRandom();
@@ -31,6 +32,7 @@ public class AESUtil {
         return Base64.getEncoder().encodeToString(combinedIvAndCipherText);
     }
 
+    // Descifrar un mensaje
     public static String decrypt(String encryptedBase64) throws Exception {
         byte[] encryptedBytes = Base64.getDecoder().decode(encryptedBase64);
         byte[] iv = new byte[IV_LENGTH];
@@ -48,10 +50,10 @@ public class AESUtil {
         return new String(decryptedBytes, StandardCharsets.UTF_8);
     }
 
+    // Generar la clave AES a partir de la passphrase
     private static SecretKeySpec generateAesKeyFromPassphrase() throws Exception {
         MessageDigest sha256 = MessageDigest.getInstance(SHA_CRYPT);
         byte[] keyBytes = sha256.digest(PASSPHRASE.getBytes(StandardCharsets.UTF_8));
         return new SecretKeySpec(keyBytes, AES_ALGORITHM);
     }
 }
-
