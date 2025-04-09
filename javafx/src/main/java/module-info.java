@@ -6,7 +6,8 @@ module com.example.gerenteapp {
     requires java.sql;
         requires java.desktop;
     requires org.json;
+        requires org.apache.commons.net;
 
-    opens com.example.gerenteapp to javafx.fxml;
+        opens com.example.gerenteapp to javafx.fxml;
     exports com.example.gerenteapp;
 }

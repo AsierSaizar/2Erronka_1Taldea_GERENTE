@@ -1,5 +1,6 @@
 package com.example.gerenteapp;
 
+import org.apache.commons.net.ftp.FTPClient;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -218,14 +219,14 @@ public class EguraldiaController {
                 Transformer transformer = transformerFactory.newTransformer();
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Para formato legible
                 DOMSource source = new DOMSource(newDoc);
-                File outputFile = new File("../2Erronka_1Taldea_EGURALDIA_XML/eguraldia.xml");
+                File outputFile = new File("./eguraldia.xml");
                 StreamResult result = new StreamResult(outputFile);
                 transformer.transform(source, result);
 
                 System.out.println("El XML filtrado se ha guardado en: " + outputFile.getAbsolutePath());
 
                 // Ejecutar el archivo .bat
-                batExecute();
+                artxiboaIgoFtp();
         }
 
 
@@ -257,33 +258,37 @@ public class EguraldiaController {
                 return a;
         }
 
-        public static void batExecute() {
-                String batFilePath = "eguraldiaPush.bat";
-
-
-                // Crea un ProcessBuilder que ejecuta cmd.exe con el parámetro /c para ejecutar el .bat
-                ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", batFilePath);
-
-                // Opcional: redirigir la salida de error al flujo de salida para poder leer todo
-                processBuilder.redirectErrorStream(true);
+        public static void artxiboaIgoFtp() {
+                FTPClient client = new FTPClient();
+                FileInputStream fis = null;
 
                 try {
-                        // Inicia el proceso
-                        Process process = processBuilder.start();
+                        client.connect("192.168.115.188");
+                        client.login("Gerente", "Gerente");
 
-                        // Lee la salida del proceso
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                                System.out.println(line);
-                        }
+                        //
+                        // Create an InputStream of the file to be uploaded
+                        //
+                        String filename = "./eguraldia.xml";
+                        fis = new FileInputStream(filename);
 
-                        // Espera a que el proceso termine
-                        int exitCode = process.waitFor();
-                        System.out.println("El proceso terminó con el código: " + exitCode);
-
-                } catch (IOException | InterruptedException e) {
+                        //
+                        // Store file to server
+                        //
+                        client.storeFile(filename, fis);
+                        client.logout();
+                } catch (IOException e) {
                         e.printStackTrace();
+                } finally {
+                        try {
+                                if (fis != null) {
+                                        fis.close();
+                                }
+                                client.disconnect();
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                        }
                 }
+
         }
 }
