@@ -96,15 +96,19 @@ public class ChatClient {
                 }
 
                 try {
-                        // El mensaje ya viene cifrado y en Base64 desde el controller
-                        writer.println(message);
-                        System.out.println("📤 Mensaje enviado (Base64): " + message.substring(0, Math.min(message.length(), 50)) + "...");
+                        // Cifrar el mensaje antes de enviarlo
+                        String encryptedMessage = AESUtil.encrypt(message);
+                        String base64Message = Base64.getEncoder().encodeToString(encryptedMessage.getBytes(StandardCharsets.UTF_8));
+
+                        // Enviar el mensaje cifrado y codificado en Base64
+                        writer.println(base64Message);
+                        System.out.println("📤 Mensaje enviado (Base64): " + base64Message.substring(0, Math.min(base64Message.length(), 50)) + "...");
 
                         // Añadir al historial local
-                        messageHistory.add(message);
+                        messageHistory.add(base64Message);
                 } catch (Exception e) {
-                        System.err.println("❌ Error al enviar el mensaje: " + e.getMessage());
-                        e.printStackTrace();
+                        System.err.println("❌ Error al cifrar o enviar el mensaje: " + e.getMessage());
+                        e.printStackTrace(); // Esto proporcionará más detalles sobre la excepción que ocurrió
                 }
         }
 
@@ -115,6 +119,7 @@ public class ChatClient {
                                 request.put("action", "get_history");
                                 request.put("usuario", username);
 
+                                // Cifrar la solicitud de historial
                                 String encryptedRequest = AESUtil.encrypt(request.toString());
                                 String base64Request = Base64.getEncoder().encodeToString(
                                         encryptedRequest.getBytes(StandardCharsets.UTF_8));
@@ -136,18 +141,43 @@ public class ChatClient {
                                         continue;
                                 }
 
-                                System.out.println("📩 Mensaje recibido: " + message.substring(0, Math.min(message.length(), 50)) + "...");
+                                System.out.println("📩 Mensaje recibido (Base64): " + message.substring(0, Math.min(message.length(), 50)) + "...");
 
-                                // Añadir al historial local
-                                messageHistory.add(message);
+                                // Separar el prefijo (ej. 'usuario;') del mensaje base64
+                                String base64Message = message;
+                                int separatorIndex = base64Message.indexOf(';');
+                                if (separatorIndex != -1) {
+                                        base64Message = base64Message.substring(separatorIndex + 1); // Obtener solo la parte base64
+                                }
 
-                                // Procesar el mensaje en el controller
-                                String finalMessage = message;
-                                Platform.runLater(() -> {
-                                        if (txataController != null) {
-                                                txataController.receiveMessage(finalMessage);
-                                        }
-                                });
+                                // Eliminar caracteres no válidos en base64 (como los que aparecen en el error)
+                                base64Message = base64Message.replaceAll("[^A-Za-z0-9+/=]", "");
+
+                                try {
+                                        // Decodificar el mensaje en Base64
+                                        byte[] decodedMessage = Base64.getDecoder().decode(base64Message);
+                                        String decodedString = new String(decodedMessage, StandardCharsets.UTF_8);
+
+                                        // Desencriptar el mensaje
+                                        String decryptedMessage = AESUtil.decrypt(decodedString);
+                                        System.out.println("🔓 Mensaje desencriptado: " + decryptedMessage);
+
+                                        // Añadir al historial local
+                                        messageHistory.add(decryptedMessage);
+
+                                        // Procesar el mensaje en el controller
+                                        String finalMessage = decryptedMessage;
+                                        Platform.runLater(() -> {
+                                                if (txataController != null) {
+                                                        txataController.receiveMessage(finalMessage);
+                                                }
+                                        });
+                                } catch (IllegalArgumentException e) {
+                                        System.err.println("❌ Error al procesar el mensaje base64 (mensaje no válido): " + e.getMessage());
+                                } catch (Exception e) {
+                                        System.err.println("❌ Error al procesar el mensaje cifrado: " + e.getMessage());
+                                        e.printStackTrace();
+                                }
                         }
                 } catch (IOException e) {
                         if (isConnected) { // Solo mostrar error si la desconexión no fue solicitada
@@ -158,6 +188,8 @@ public class ChatClient {
                         disconnect();
                 }
         }
+
+
 
         public void disconnect() {
                 isConnected = false;

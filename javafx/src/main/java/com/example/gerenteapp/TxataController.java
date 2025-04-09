@@ -190,17 +190,24 @@ public class TxataController extends BaseController {
         private String processEncryptedMessage(String encryptedMessage) throws Exception {
                 System.out.println("Mensaje recibido (crudo): " + encryptedMessage);
 
+                // Intentar decodificar Base64 y desencriptar
                 try {
-                        if (encryptedMessage.trim().startsWith("{") || encryptedMessage.trim().startsWith("[")) {
-                                return encryptedMessage;
-                        }
-                } catch (Exception ignored) {}
+                        // Filtrar solo caracteres válidos base64
+                        String filteredMessage = encryptedMessage.replaceAll("[^A-Za-z0-9+/=]", "");
+                        System.out.println("Intentando decodificar base64: " + filteredMessage);
 
-                try {
-                        return decrypt(encryptedMessage);
+                        // Intentar decodificar base64
+                        byte[] decodedMessage = Base64.getDecoder().decode(filteredMessage);
+                        String decryptedMessage = decrypt(new String(decodedMessage, StandardCharsets.UTF_8));
+
+                        System.out.println("Mensaje descifrado: " + decryptedMessage);
+                        return decryptedMessage;
                 } catch (IllegalArgumentException e) {
                         System.out.println("No es base64 válido, procesando como texto plano");
-                        return encryptedMessage;
+                        return encryptedMessage; // Procesar como texto plano si no es base64 válido
+                } catch (Exception e) {
+                        System.err.println("❌ Error al procesar el mensaje base64: " + e.getMessage());
+                        throw new Exception("Error al procesar el mensaje cifrado", e);
                 }
         }
 
