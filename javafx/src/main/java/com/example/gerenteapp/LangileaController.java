@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -137,29 +139,58 @@ public class LangileaController extends BaseController {
         @FXML
         private ComboBox<Integer> txatPermisosComboBox;
 
+
+
+// ...
+
         public void createLangilea(ActionEvent actionEvent) {
                 String izena = izenaField.getText().trim();
                 String abizena = abizenaField.getText().trim();
                 String emaila = emailaField.getText().trim();
                 String pasahitza = pasahitzaField.getText().trim();
-                int txatPermisos;
-                int nivelPermisos;
+                Integer txatPermisos = txatPermisosComboBox.getValue();
+                Integer nivelPermisos = nivelPermisosComboBox.getValue();
 
-                try {
-                        nivelPermisos = nivelPermisosComboBox.getValue() != null ? nivelPermisosComboBox.getValue() : 1;
-                        txatPermisos = txatPermisosComboBox.getValue() != null ? txatPermisosComboBox.getValue() : 0;
-                } catch (NullPointerException e) {
-                        System.out.println("Error: Selecciona un nivel de permisos y un permiso de chat.");
-                        return;
+                // Validación de campos vacíos
+                StringBuilder mensaje = new StringBuilder("Langilea ez da sortu propietate hau bete gabe utzi duzu:\n");
+                boolean hayCamposVacios = false;
+
+                if (izena.isEmpty()) {
+                        mensaje.append(" Izena\n");
+                        hayCamposVacios = true;
+                }
+                if (abizena.isEmpty()) {
+                        mensaje.append(" Abizena\n");
+                        hayCamposVacios = true;
+                }
+                if (emaila.isEmpty()) {
+                        mensaje.append(" Emaila\n");
+                        hayCamposVacios = true;
+                }
+                if (pasahitza.isEmpty()) {
+                        mensaje.append(" Pasahitza\n");
+                        hayCamposVacios = true;
+                }
+                if (nivelPermisos == null) {
+                        mensaje.append(" Baimen maila\n");
+                        hayCamposVacios = true;
+                }
+                if (txatPermisos == null) {
+                        mensaje.append(" txat baimena\n");
+                        hayCamposVacios = true;
                 }
 
-                if (izena.isEmpty() || abizena.isEmpty() || emaila.isEmpty() || pasahitza.isEmpty()) {
-                        System.out.println("Error: Todos los campos deben estar llenos.");
+                if (hayCamposVacios) {
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Kanpo hutsak");
+                        alerta.setHeaderText("Ezin izan da langilea sortu");
+                        alerta.setContentText(mensaje.toString());
+                        alerta.showAndWait();
                         return;
                 }
 
                 // Mensajes de depuración
-                System.out.println("Datos recogidos para inserción:");
+                System.out.println("Gehitutako datuak:");
                 System.out.println("Izena: " + izena);
                 System.out.println("Abizena: " + abizena);
                 System.out.println("Emaila: " + emaila);
@@ -171,14 +202,20 @@ public class LangileaController extends BaseController {
                 boolean success = LangileaKudeatzailea.insertLangilea(langilea);
 
                 if (success) {
-                        System.out.println("Langilea creado correctamente.");
+                        System.out.println("Langilea zuzen sortu da.");
                 } else {
-                        System.out.println("Error al crear el Langilea.");
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Akatsa sortzerakoan");
+                        alerta.setHeaderText("Ezin izan da langilea sortu");
+                        alerta.setContentText("Errore bat gertatu da langilea sartzerakoan.");
+                        alerta.showAndWait();
                 }
 
                 clearInputFields();
                 loadLangileakData();
         }
+
+
 
         private void clearInputFields() {
                 izenaField.clear();
@@ -240,40 +277,54 @@ public class LangileaController extends BaseController {
 
         @FXML
         public void editLangilea(ActionEvent actionEvent) {
-                // Obtención del Langilea seleccionado
                 Langilea selectedLangilea = langileakTable.getSelectionModel().getSelectedItem();
 
                 if (selectedLangilea == null) {
-                        System.out.println("Por favor, selecciona un registro para editar.");
+                        Alert alerta = new Alert(Alert.AlertType.WARNING);
+                        alerta.setTitle("Selección requerida");
+                        alerta.setHeaderText("Ningún Langilea seleccionado");
+                        alerta.setContentText("Por favor, selecciona un registro para editar.");
+                        alerta.showAndWait();
                         return;
                 }
 
-                // Obtener los valores de los campos de texto y ComboBox
-                String izena = izenaEditField.getText().trim().isEmpty() ? selectedLangilea.getIzena() : izenaEditField.getText().trim();
-                String abizena = abizenaEditField.getText().trim().isEmpty() ? selectedLangilea.getAbizena() : abizenaEditField.getText().trim();
-                String emaila = emailaEditField.getText().trim().isEmpty() ? selectedLangilea.getEmail() : emailaEditField.getText().trim();
-                String pasahitza = pasahitzaEditField.getText().trim().isEmpty() ? selectedLangilea.getPasahitza() : pasahitzaEditField.getText().trim();
+                // Obtener y validar campos de texto
+                String izena = izenaEditField.getText().trim();
+                String abizena = abizenaEditField.getText().trim();
+                String emaila = emailaEditField.getText().trim();
+                String pasahitza = pasahitzaEditField.getText().trim();
 
-                // Obtener los valores seleccionados en los ComboBox
+                // Si alguno está vacío, mantener el valor anterior
+                if (izena.isEmpty()) izena = selectedLangilea.getIzena();
+                if (abizena.isEmpty()) abizena = selectedLangilea.getAbizena();
+                if (emaila.isEmpty()) emaila = selectedLangilea.getEmail();
+                if (pasahitza.isEmpty()) pasahitza = selectedLangilea.getPasahitza();
+
+                // Obtener valores de ComboBox
                 Integer nivelPermisos = nivelPermisosComboBoxEdit.getSelectionModel().getSelectedItem();
                 Integer txatPermisos = txatPermisosEditComboBox.getSelectionModel().getSelectedItem();
 
-                // Verificar que los valores de los ComboBox no sean null
+                // Validar ComboBox seleccionados
                 if (nivelPermisos == null || txatPermisos == null) {
-                        System.out.println("Error: Nivel de permisos o permiso de chat no seleccionados.");
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Permisos requeridos");
+                        alerta.setHeaderText("Selección incompleta");
+                        alerta.setContentText("Por favor, selecciona un nivel de permisos y un permiso de chat.");
+                        alerta.showAndWait();
                         return;
                 }
 
-                // Verificar que los campos no estén vacíos antes de actualizar
-                System.out.println("Valores a actualizar: ");
-                System.out.println("Izena: " + izena);
-                System.out.println("Abizena: " + abizena);
-                System.out.println("Emaila: " + emaila);
-                System.out.println("Pasahitza: " + pasahitza);
-                System.out.println("NivelPermisos: " + nivelPermisos);
-                System.out.println("TxatPermiso: " + txatPermisos);
+                // Verificar que ningún campo está completamente vacío
+                if (izena.isEmpty() || abizena.isEmpty() || emaila.isEmpty() || pasahitza.isEmpty()) {
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Campos vacíos");
+                        alerta.setHeaderText("No se puede actualizar con campos vacíos");
+                        alerta.setContentText("Asegúrate de que todos los campos contengan información válida.");
+                        alerta.showAndWait();
+                        return;
+                }
 
-                // Actualizar los valores en el objeto seleccionado
+                // Actualizar datos
                 selectedLangilea.setIzena(izena);
                 selectedLangilea.setAbizena(abizena);
                 selectedLangilea.setEmail(emaila);
@@ -281,26 +332,26 @@ public class LangileaController extends BaseController {
                 selectedLangilea.setNivelPermisos(nivelPermisos);
                 selectedLangilea.setTxatPermiso(txatPermisos);
 
-                // Llamar al método de la clase LangileaKudeatzailea para actualizar en la base de datos
                 boolean success = LangileaKudeatzailea.editLangilea(selectedLangilea);
 
                 if (success) {
                         System.out.println("Langilea actualizado correctamente.");
-
-                        // Limpiar los campos de edición después de actualizar
                         izenaEditField.clear();
                         abizenaEditField.clear();
                         emailaEditField.clear();
                         pasahitzaEditField.clear();
-                        nivelPermisosComboBoxEdit.getSelectionModel().selectFirst();
-                        txatPermisosEditComboBox.getSelectionModel().selectFirst();
-
-                        // Actualizar la tabla y recargar los datos
+                        nivelPermisosComboBoxEdit.getSelectionModel().clearSelection();
+                        txatPermisosEditComboBox.getSelectionModel().clearSelection();
                         langileakTable.refresh();
                         loadLangileakData();
                 } else {
-                        System.out.println("Error al actualizar el Langilea.");
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Error al actualizar");
+                        alerta.setHeaderText("No se pudo actualizar el Langilea");
+                        alerta.setContentText("Ocurrió un error al intentar guardar los cambios en la base de datos.");
+                        alerta.showAndWait();
                 }
         }
+
 
 }
