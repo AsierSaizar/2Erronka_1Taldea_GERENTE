@@ -236,30 +236,44 @@ public class LangileaController extends BaseController {
                 String id = IdDeleteField.getText();
 
                 if (id.isEmpty()) {
-                        System.out.println("Por favor, selecciona un langilea o introduce un ID válido.");
+                        mostrarAlerta(AlertType.WARNING, "Error", "Por favor, selecciona un langilea antes de continuar.");
                         return;
                 }
+
                 if (LangileaKudeatzailea.deleteLangilea(id)) {
-                        System.out.println("Langilea eliminado correctamente.");
+                        mostrarAlerta(AlertType.INFORMATION, "Éxito", "Langilea eliminado correctamente.");
                         loadLangileakData();
                         IdDeleteField.clear();
                         izenaDeleteField.clear();
+                } else {
+                        mostrarAlerta(AlertType.ERROR, "Error", "No se pudo eliminar el langilea. Verifica si ya ha sido eliminado.");
                 }
         }
 
+        // Método para recuperar langilea
         public void berreskuratuLangilea(ActionEvent actionEvent) {
                 String id = IdDeleteField.getText();
 
                 if (id.isEmpty()) {
-                        System.out.println("Por favor, selecciona un langilea o introduce un ID válido.");
+                        mostrarAlerta(AlertType.WARNING, "Error", "Por favor, selecciona un langilea antes de continuar.");
                         return;
                 }
+
                 if (LangileaKudeatzailea.berreskuratuLangilea(id)) {
-                        System.out.println("Langilea berreskuratuta correctamente.");
+                        mostrarAlerta(AlertType.INFORMATION, "Éxito", "Langilea berreskuratuta correctamente.");
                         loadLangileakData();
                         IdDeleteField.clear();
                         izenaDeleteField.clear();
+                } else {
+                        mostrarAlerta(AlertType.ERROR, "Error", "No se pudo recuperar el langilea. Verifica si ya fue eliminado previamente.");
                 }
+        }
+        private void mostrarAlerta(AlertType tipo, String titulo, String mensaje) {
+                Alert alerta = new Alert(tipo);
+                alerta.setTitle(titulo);
+                alerta.setHeaderText(null); // Sin encabezado adicional
+                alerta.setContentText(mensaje);
+                alerta.showAndWait();
         }
 
         @FXML
@@ -280,11 +294,7 @@ public class LangileaController extends BaseController {
                 Langilea selectedLangilea = langileakTable.getSelectionModel().getSelectedItem();
 
                 if (selectedLangilea == null) {
-                        Alert alerta = new Alert(Alert.AlertType.WARNING);
-                        alerta.setTitle("Selección requerida");
-                        alerta.setHeaderText("Ningún Langilea seleccionado");
-                        alerta.setContentText("Por favor, selecciona un registro para editar.");
-                        alerta.showAndWait();
+                        mostrarAlerta(Alert.AlertType.WARNING, "Selección requerida", "Ningún Langilea seleccionado", "Por favor, selecciona un registro para editar.");
                         return;
                 }
 
@@ -294,11 +304,27 @@ public class LangileaController extends BaseController {
                 String emaila = emailaEditField.getText().trim();
                 String pasahitza = pasahitzaEditField.getText().trim();
 
-                // Si alguno está vacío, mantener el valor anterior
-                if (izena.isEmpty()) izena = selectedLangilea.getIzena();
-                if (abizena.isEmpty()) abizena = selectedLangilea.getAbizena();
-                if (emaila.isEmpty()) emaila = selectedLangilea.getEmail();
-                if (pasahitza.isEmpty()) pasahitza = selectedLangilea.getPasahitza();
+                // Validaciones negativas de caja negra
+                if (izena.isEmpty() || abizena.isEmpty() || emaila.isEmpty() || pasahitza.isEmpty()) {
+                        mostrarAlerta(Alert.AlertType.ERROR, "Campos vacíos", "No se puede actualizar", "Todos los campos deben estar completos.");
+                        return;
+                }
+
+                // Validaciones adicionales
+                if (!emaila.matches("^\\S+@\\S+\\.\\S+$")) {
+                        mostrarAlerta(Alert.AlertType.ERROR, "Email inválido", "Formato de correo incorrecto", "Introduce un correo electrónico válido.");
+                        return;
+                }
+
+                if (pasahitza.length() < 6) {
+                        mostrarAlerta(Alert.AlertType.ERROR, "Contraseña débil", "La contraseña es demasiado corta", "Debe tener al menos 6 caracteres.");
+                        return;
+                }
+
+                if (!izena.matches("^[A-Za-zÀ-ÿ\\s]+$") || !abizena.matches("^[A-Za-zÀ-ÿ\\s]+$")) {
+                        mostrarAlerta(Alert.AlertType.ERROR, "Nombre o Apellido inválidos", "Solo se permiten letras", "Revisa los campos de nombre y apellido.");
+                        return;
+                }
 
                 // Obtener valores de ComboBox
                 Integer nivelPermisos = nivelPermisosComboBoxEdit.getSelectionModel().getSelectedItem();
@@ -306,21 +332,7 @@ public class LangileaController extends BaseController {
 
                 // Validar ComboBox seleccionados
                 if (nivelPermisos == null || txatPermisos == null) {
-                        Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Permisos requeridos");
-                        alerta.setHeaderText("Selección incompleta");
-                        alerta.setContentText("Por favor, selecciona un nivel de permisos y un permiso de chat.");
-                        alerta.showAndWait();
-                        return;
-                }
-
-                // Verificar que ningún campo está completamente vacío
-                if (izena.isEmpty() || abizena.isEmpty() || emaila.isEmpty() || pasahitza.isEmpty()) {
-                        Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Campos vacíos");
-                        alerta.setHeaderText("No se puede actualizar con campos vacíos");
-                        alerta.setContentText("Asegúrate de que todos los campos contengan información válida.");
-                        alerta.showAndWait();
+                        mostrarAlerta(Alert.AlertType.ERROR, "Permisos requeridos", "Selección incompleta", "Selecciona un nivel de permisos y permiso de chat.");
                         return;
                 }
 
@@ -345,13 +357,19 @@ public class LangileaController extends BaseController {
                         langileakTable.refresh();
                         loadLangileakData();
                 } else {
-                        Alert alerta = new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Error al actualizar");
-                        alerta.setHeaderText("No se pudo actualizar el Langilea");
-                        alerta.setContentText("Ocurrió un error al intentar guardar los cambios en la base de datos.");
-                        alerta.showAndWait();
+                        mostrarAlerta(Alert.AlertType.ERROR, "Error al actualizar", "No se pudo actualizar el Langilea", "Ocurrió un error al intentar guardar los cambios en la base de datos.");
                 }
         }
+
+        // Función auxiliar para mostrar alertas
+        private void mostrarAlerta(Alert.AlertType tipo, String titulo, String cabecera, String contenido) {
+                Alert alerta = new Alert(tipo);
+                alerta.setTitle(titulo);
+                alerta.setHeaderText(cabecera);
+                alerta.setContentText(contenido);
+                alerta.showAndWait();
+        }
+
 
 
 }
