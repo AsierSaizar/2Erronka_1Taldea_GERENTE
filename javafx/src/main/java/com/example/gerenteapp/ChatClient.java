@@ -131,6 +131,7 @@ public class ChatClient {
                 try {
                         String message;
                         while (isConnected && (message = reader.readLine()) != null) {
+                                // desencriptar mensaje
                                 if (message.trim().isEmpty()) {
                                         System.err.println("⚠️ Mensaje vacío recibido. Ignorado.");
                                         continue;

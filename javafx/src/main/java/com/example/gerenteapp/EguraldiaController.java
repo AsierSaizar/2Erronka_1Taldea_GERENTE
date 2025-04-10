@@ -52,7 +52,7 @@ public class EguraldiaController {
                 Element root = newDoc.createElement("prediccion");
                 newDoc.appendChild(root);
 
-                
+
                 // Iterar sobre los nodos <dia> del XML original
                 for (int i = 0; i < diaNodes.getLength(); i++) {
                         Element dia = (Element) diaNodes.item(i);
@@ -103,12 +103,12 @@ public class EguraldiaController {
 
                         // --- Zeru egoera ---
                         Map<String, String> espEus = new HashMap<>();
-                        espEus.put("Cubierto con lluvia", "Euria estalituta");
+                        espEus.put("Cubierto con lluvia", "Euriz beteta");
                         espEus.put("Despejado", "Argi");
-                        espEus.put("Poco nuboso", "Gutxi hodeitsu");
-                        espEus.put("Muy nuboso", "Oso hodeitsu");
+                        espEus.put("Poco nuboso", "Hodei gutxiekin");
+                        espEus.put("Muy nuboso", "Oso hodeitsua");
                         espEus.put("Cubierto", "Hodeituta");
-                        espEus.put("Intervalos nubosos con lluvia escasa", "Euria gutxi duten hodeitsu tarteak");
+                        espEus.put("Intervalos nubosos con lluvia escasa", "Euria gutxi duten hodeiak noizbehinka");
 
                         NodeList estadoNodes = (NodeList) xpath.evaluate("estado_cielo", dia, XPathConstants.NODESET);
                         double sumaEgoera = 0.0;
@@ -150,10 +150,16 @@ public class EguraldiaController {
                         for (Map.Entry<String, Integer> entry : descFreq.entrySet()) {
                                 if (entry.getValue() > maxFreq) {
                                         maxFreq = entry.getValue();
-                                        deskribapenEsp = entry.getKey();
+                                        deskribapenEsp = entry.getKey().trim().toLowerCase(); // Para usar en el mapa
+
                                 }
                         }
-                        // Itzuli deskribapena euskerara
+                        // Convertir a formato con mayúscula inicial
+                        if (!deskribapenEsp.equals("Ez dago")) {
+                                deskribapenEsp = deskribapenEsp.substring(0, 1).toUpperCase() + deskribapenEsp.substring(1);
+                        }
+
+// Itzuli deskribapena euskerara
                         String deskribapenEus = espEus.getOrDefault(deskribapenEsp, deskribapenEsp);
                         Element deskribapena = newDoc.createElement("deskribapena");
                         deskribapena.setTextContent(deskribapenEus);
@@ -196,7 +202,7 @@ public class EguraldiaController {
                                 }
                                 haizeDeskribapena = "Haize batezbesteko abiadura: " + mediaHaize + " km/h";
                                 if (!norabPredom.equals("Ez dago")) {
-                                        haizeDeskribapena += " eta " + norabPredom + " norabaitik dator";
+                                        haizeDeskribapena += " eta " + norabPredom + " norabaitik datorrena";
                                 }
                         } else {
                                 haizeDeskribapena = "Ez dago haize daturik";
@@ -208,10 +214,6 @@ public class EguraldiaController {
                         // Gorde eguraldiaren nodoa dokumentu errorean
                         root.appendChild(eguraldia);
                 }
-
-
-
-
 
 
                 // Guardar el nuevo XML en un archivo
@@ -230,12 +232,7 @@ public class EguraldiaController {
         }
 
 
-
-
-
-
-        public static ArrayList<Object> getFiles(boolean aukeratu, String url)
-                throws KeyManagementException, NoSuchAlgorithmException, MalformedURLException, IOException {
+        public static ArrayList<Object> getFiles(boolean aukeratu, String url) throws KeyManagementException, NoSuchAlgorithmException, MalformedURLException, IOException {
                 File fXmlFile = null;
                 InputStream iXmlFile = null;
 
@@ -264,6 +261,8 @@ public class EguraldiaController {
 
                 try {
                         client.connect("192.168.115.188");
+                        //client.connect("127.0.0.1");
+
                         client.login("Gerente", "Gerente");
 
                         //
