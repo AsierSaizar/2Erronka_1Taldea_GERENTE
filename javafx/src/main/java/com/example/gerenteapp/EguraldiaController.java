@@ -260,8 +260,8 @@ public class EguraldiaController {
                 FileInputStream fis = null;
 
                 try {
-                        client.connect("192.168.115.188");
-                        //client.connect("127.0.0.1");
+                        //client.connect("192.168.115.188");
+                        client.connect("127.0.0.1");
 
                         client.login("Gerente", "Gerente");
 

@@ -10,262 +10,78 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.GCMParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+public class TxataController extends BaseController{
 
-public class TxataController extends BaseController {
+        public HBox navBarContainer;
+        @FXML
+        private VBox chatBox;
+        @FXML
+        private TextField messageField;
+        @FXML
+        private Button sendButton;
+        @FXML
+        private ScrollPane scrollPane;
 
-        @FXML private VBox chatBox;
-        @FXML private TextField messageField;
-        @FXML private Button sendButton;
-        @FXML private ScrollPane scrollPane;
+        private Langilea langilea;
+
+        private ChatClient chatClient;
 
         private String Izena;
-        private ChatClient chatClient;
-        private List<String> messageHistory = new ArrayList<>();
-        private static final String SHA_CRYPT = "SHA-256";
-        private static final String AES_ALGORITHM = "AES";
-        private static final String AES_ALGORITHM_GCM = "AES/GCM/NoPadding";
-        private static final int IV_LENGTH = 12;
-        private static final int TAG_LENGTH = 16;
-        private static final String PASSPHRASE = "mySecurePassphrase123!";
 
         @FXML
         public void initialize() {
                 chatClient = new ChatClient(this);
-                chatClient.connect();  // Suponiendo que esta función conecta y empieza a escuchar mensajes
+                chatClient.connect();
+
                 sendButton.setStyle("-fx-background-color: #1E90FF; -fx-text-fill: white;");
-                loadMessageHistory();
         }
 
-        public void setLangilea(Langilea langilea) {
-                if (langilea != null) {
-                        this.Izena = langilea.getIzena();
-                        System.out.println("🟢 Langilea asignado a TxataController: " + this.Izena);
-                        Platform.runLater(() -> {
-                                if (messageField != null) {
-                                        messageField.setPromptText("Escribe tu mensaje como " + this.Izena);
-                                }
-                        });
-                } else {
-                        System.err.println("🔴 Error: Langilea recibido es null.");
-                }
+        public void setIzena(String Izena) {
+                this.Izena = Izena;
         }
 
         @FXML
-        private void sendMessage() {
+        private void sendMessage() throws Exception {
                 String message = messageField.getText();
                 if (!message.isEmpty()) {
-                        try {
-                                JSONObject jsonMessage = new JSONObject();
-                                jsonMessage.put("Nombre", this.Izena);
-                                jsonMessage.put("mensaje", message);
-                                jsonMessage.put("timestamp", System.currentTimeMillis());
-
-                                String encryptedMessage = encrypt(jsonMessage.toString());
-                                messageHistory.add(encryptedMessage);
-                                displayMessage(jsonMessage.toString(), true);
-                                chatClient.sendMessage(encryptedMessage);  // Enviar el mensaje cifrado
-                                messageField.clear();
-                        } catch (Exception e) {
-                                e.printStackTrace();
-                                displayError("❌ Error al enviar el mensaje");
-                        }
+                        message = this.Izena +"> " + message;
+                        chatClient.sendMessage(message);
+                        displayMessage(message, true);
+                        messageField.clear();
                 }
         }
 
-        public void receiveMessage(String encryptedMessage) {
-                try {
-                        String decrypted = processEncryptedMessage(encryptedMessage);
-                        System.out.println("🔓 Decrypted: " + decrypted);
-
-                        if (decrypted.trim().startsWith("[")) {
-                                JSONArray jsonArray = new JSONArray(decrypted);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                        JSONObject json = jsonArray.getJSONObject(i);
-                                        String senderName = json.optString("Nombre", "Desconocido");
-                                        String encryptedMsg = json.getString("mensaje");
-
-                                        String decryptedMsg = decrypt(encryptedMsg);
-
-                                        JSONObject mostrarJson = new JSONObject();
-                                        mostrarJson.put("Nombre", senderName);
-                                        mostrarJson.put("mensaje", decryptedMsg);
-
-                                        displayMessage(mostrarJson.toString(), senderName.equals(this.Izena));
-                                }
-                        } else if (decrypted.trim().startsWith("{")) {
-                                JSONObject json = new JSONObject(decrypted);
-                                String senderName = json.optString("Nombre", "Desconocido");
-                                String encryptedMsg = json.getString("mensaje");
-
-                                String decryptedMsg = decrypt(encryptedMsg);
-
-                                JSONObject mostrarJson = new JSONObject();
-                                mostrarJson.put("Nombre", senderName);
-                                mostrarJson.put("mensaje", decryptedMsg);
-
-                                displayMessage(mostrarJson.toString(), senderName.equals(this.Izena));
-                        } else {
-                                System.out.println("⚠️ Formato de mensaje no reconocido: " + decrypted);
-                                displayError("❌ Formato de mensaje no reconocido");
-                        }
-                } catch (JSONException e) {
-                        System.out.println("JSON Error: " + e.getMessage());
-                        displayError("❌ Error en formato de mensaje: " + e.getMessage());
-                } catch (Exception e) {
-                        e.printStackTrace();
-                        displayError("❌ Error al procesar mensaje");
-                }
+        public void setLangilea(Langilea langilea) {
+                this.langilea = langilea;
+                setIzena(langilea.getIzena());
         }
 
-        private void displayMessage(String messageData, boolean isCurrentUser) {
+        public void displayMessage(String message, boolean isUserMessage) {
                 Platform.runLater(() -> {
-                        try {
-                                JSONObject jsonMessage = new JSONObject(messageData);
-                                String senderName = jsonMessage.getString("Nombre");
-                                String msg = jsonMessage.getString("mensaje");
+                        Text text = new Text(message);
+                        text.setFill(Color.BLACK);
+                        TextFlow textFlow = new TextFlow(text);
+                        textFlow.setMaxWidth(300);
+                        textFlow.setMinHeight(50);
 
-                                boolean isUser = senderName.equals(this.Izena);
+                        // Separar el nombre del remitente del mensaje
+                        String[] parts = message.split(">", 2);
+                        if (parts.length < 2) return;
+                        String senderName = parts[0].trim();
+                        String msg = parts[1].trim();
 
-                                Text text = new Text(senderName + ": " + msg);
-                                text.setFill(isUser ? Color.DARKBLUE : Color.BLACK);
+                        // Determinar si el mensaje es del usuario actual
+                        boolean isUser = senderName.equals(this.Izena);
 
-                                TextFlow textFlow = new TextFlow(text);
-                                textFlow.setMaxWidth(300);
-                                textFlow.setStyle(isUser
-                                        ? "-fx-background-color: #ADD8E6; -fx-padding: 5px; -fx-background-radius: 10px;"
-                                        : "-fx-background-color: #D3D3D3; -fx-padding: 5px; -fx-background-radius: 10px;");
+                        // Ajustar el estilo del TextFlow
+                        textFlow.setStyle(isUser ? "-fx-background-color: #ADD8E6; -fx-alignment: center-right; -fx-padding: 5px;" : "-fx-background-color: #D3D3D3; -fx-alignment: center-left; -fx-padding: 5px;");
 
-                                HBox messageBox = new HBox(textFlow);
-                                messageBox.setStyle(isUser
-                                        ? "-fx-alignment: center-right;"
-                                        : "-fx-alignment: center-left;");
-
-                                chatBox.getChildren().add(messageBox);
-                                scrollPane.setVvalue(1.0);
-                        } catch (Exception e) {
-                                e.printStackTrace();
-                                displayError("❌ Error al mostrar mensaje");
-                        }
+                        // Ajustar la alineación del mensaje
+                        HBox messageBox = new HBox(textFlow);
+                        messageBox.setStyle(isUser ? "-fx-alignment: center-right;" : "-fx-alignment: center-left;");
+                        chatBox.getChildren().add(messageBox);
+                        scrollPane.setVvalue(1.0); // Scroll to the bottom
                 });
-        }
-
-        private void loadMessageHistory() {
-                try {
-                        chatBox.getChildren().clear();
-
-                        for (String encryptedMsg : messageHistory) {
-                                String decrypted = processEncryptedMessage(encryptedMsg);
-                                JSONObject jsonMsg = new JSONObject(decrypted);
-                                boolean isCurrentUser = jsonMsg.getString("Nombre").equals(this.Izena);
-                                displayMessage(decrypted, isCurrentUser);
-                        }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                        displayError("❌ Error al cargar historial");
-                }
-        }
-
-        public void setMessageHistory(List<String> history) {
-                this.messageHistory = new ArrayList<>(history);
-                loadMessageHistory();
-        }
-
-        public List<String> getMessageHistory() {
-                return new ArrayList<>(messageHistory);
-        }
-
-        private String processEncryptedMessage(String encryptedMessage) throws Exception {
-                System.out.println("Mensaje recibido (crudo): " + encryptedMessage);
-
-                // Intentar decodificar Base64 y desencriptar
-                try {
-                        // Filtrar solo caracteres válidos base64
-                        String filteredMessage = encryptedMessage.replaceAll("[^A-Za-z0-9+/=]", "");
-                        System.out.println("Intentando decodificar base64: " + filteredMessage);
-
-                        // Intentar decodificar base64
-                        byte[] decodedMessage = Base64.getDecoder().decode(filteredMessage);
-                        String decryptedMessage = decrypt(new String(decodedMessage, StandardCharsets.UTF_8));
-
-                        System.out.println("Mensaje descifrado: " + decryptedMessage);
-                        return decryptedMessage;
-                } catch (IllegalArgumentException e) {
-                        System.out.println("No es base64 válido, procesando como texto plano");
-                        return encryptedMessage; // Procesar como texto plano si no es base64 válido
-                } catch (Exception e) {
-                        System.err.println("❌ Error al procesar el mensaje base64: " + e.getMessage());
-                        throw new Exception("Error al procesar el mensaje cifrado", e);
-                }
-        }
-
-        void displayError(String errorMessage) {
-                Text errorText = new Text(errorMessage);
-                errorText.setFill(Color.RED);
-                TextFlow errorFlow = new TextFlow(errorText);
-                HBox errorBox = new HBox(errorFlow);
-                chatBox.getChildren().add(errorBox);
-        }
-
-        private String encrypt(String message) throws Exception {
-                return encryptAES(message, PASSPHRASE);
-        }
-
-        private String decrypt(String encryptedMessage) throws Exception {
-                return decryptAES(encryptedMessage, PASSPHRASE);
-        }
-
-        private String encryptAES(String message, String passphrase) throws Exception {
-                byte[] iv = new byte[IV_LENGTH];
-                SecureRandom secureRandom = new SecureRandom();
-                secureRandom.nextBytes(iv);
-
-                SecretKeySpec keySpec = getKeyFromPassphrase(passphrase);
-                Cipher cipher = Cipher.getInstance(AES_ALGORITHM_GCM);
-                GCMParameterSpec gcmSpec = new GCMParameterSpec(TAG_LENGTH * 8, iv);
-                cipher.init(Cipher.ENCRYPT_MODE, keySpec, gcmSpec);
-
-                byte[] encryptedBytes = cipher.doFinal(message.getBytes(StandardCharsets.UTF_8));
-
-                byte[] combined = new byte[iv.length + encryptedBytes.length];
-                System.arraycopy(iv, 0, combined, 0, iv.length);
-                System.arraycopy(encryptedBytes, 0, combined, iv.length, encryptedBytes.length);
-
-                return Base64.getEncoder().encodeToString(combined);
-        }
-
-        private String decryptAES(String encryptedMessage, String passphrase) throws Exception {
-                byte[] decoded = Base64.getDecoder().decode(encryptedMessage);
-                byte[] iv = new byte[IV_LENGTH];
-                byte[] cipherBytes = new byte[decoded.length - IV_LENGTH];
-
-                System.arraycopy(decoded, 0, iv, 0, IV_LENGTH);
-                System.arraycopy(decoded, IV_LENGTH, cipherBytes, 0, cipherBytes.length);
-
-                SecretKeySpec keySpec = getKeyFromPassphrase(passphrase);
-                Cipher cipher = Cipher.getInstance(AES_ALGORITHM_GCM);
-                GCMParameterSpec gcmSpec = new GCMParameterSpec(TAG_LENGTH * 8, iv);
-                cipher.init(Cipher.DECRYPT_MODE, keySpec, gcmSpec);
-
-                byte[] decryptedBytes = cipher.doFinal(cipherBytes);
-                return new String(decryptedBytes, StandardCharsets.UTF_8);
-        }
-
-        private SecretKeySpec getKeyFromPassphrase(String passphrase) throws Exception {
-                MessageDigest digest = MessageDigest.getInstance(SHA_CRYPT);
-                byte[] hash = digest.digest(passphrase.getBytes(StandardCharsets.UTF_8));
-                return new SecretKeySpec(hash, AES_ALGORITHM);
         }
 }
