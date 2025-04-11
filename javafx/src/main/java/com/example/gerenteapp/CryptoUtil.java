@@ -7,7 +7,7 @@ import java.util.Base64;
 
 public class CryptoUtil {
         // Clave privada compartida (debe ser de 16, 24 o 32 bytes para AES)
-        private static final String PRIVATE_KEY = "MiClavePrivada12"; // Ejemplo: 16 caracteres
+        private static final String PRIVATE_KEY = "TralaleroTralala"; // Ejemplo: 16 caracteres
 
         // Método para encriptar un mensaje
         public static String encrypt(String plainText) throws Exception {
