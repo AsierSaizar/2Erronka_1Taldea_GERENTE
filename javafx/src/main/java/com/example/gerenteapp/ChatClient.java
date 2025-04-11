@@ -33,8 +33,10 @@ public class ChatClient {
                 }).start();
         }
 
-        public void sendMessage(String message) {
-
+        public void sendMessage(String message) throws Exception {
+                String user = message.split(">")[0];
+                String encryptedMessage = CryptoUtil.encrypt(message.split(">")[1]);
+                message = user+"> " + encryptedMessage;
                 writer.println(message);
         }
 
@@ -42,10 +44,42 @@ public class ChatClient {
                 try {
                         String message;
                         while ((message = reader.readLine()) != null) {
+                                // Validar que el mensaje no sea nulo y contenga el carácter '>'
+                                if (message == null || !message.contains(">")) {
+                                        System.err.println("Mensaje mal formado: " + message);
+                                        continue; // Saltar este mensaje y continuar con el siguiente
+                                }
+
+                                // Dividir el mensaje en usuario y contenido cifrado
+                                String[] parts = message.split(">", 2); // Dividir en máximo 2 partes
+                                if (parts.length < 2) {
+                                        System.err.println("Formato incorrecto del mensaje: " + message);
+                                        continue; // Saltar este mensaje y continuar con el siguiente
+                                }
+
+                                String user = parts[0].trim(); // Obtener el usuario
+                                String encryptedContent = parts[1].trim(); // Obtener el contenido cifrado
+
+                                // Desencriptar el mensaje
+                                String decryptedMessage;
+                                try {
+                                        decryptedMessage = CryptoUtil.decrypt(encryptedContent);
+                                } catch (Exception e) {
+                                        System.err.println("Error al desencriptar el mensaje: " + encryptedContent);
+                                        e.printStackTrace();
+                                        continue; // Saltar este mensaje y continuar con el siguiente
+                                }
+
+                                // Construir el mensaje final
+                                message = user + "> " + decryptedMessage;
+
+                                // Mostrar el mensaje en la interfaz
                                 txataController.displayMessage(message, false);
                         }
                 } catch (IOException e) {
                         e.printStackTrace();
+                } catch (Exception e) {
+                        throw new RuntimeException(e);
                 }
         }
 

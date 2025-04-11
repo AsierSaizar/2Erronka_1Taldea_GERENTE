@@ -55,7 +55,7 @@ public class CryptoUtil {
         // Método principal para pruebas
         public static void main(String[] args) {
                 try {
-                        String originalMessage = "Asier: Kaixo";
+                        String originalMessage = "Asffffffffffier: Kaixo";
                         // Encriptar el mensaje
                         String encryptedMessage = CryptoUtil.encrypt(originalMessage);
 
