@@ -23,9 +23,12 @@
     </ScrollPane>
 
     <!-- Campo de entrada de mensajes -->
-    <TextField fx:id="messageField" layoutX="26.0" layoutY="687.0" prefHeight="50.0" prefWidth="1030.0" promptText="Escribe un mensaje" styleClass="textFieldTxat" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="130.0" />
-
-    <!-- Botón de envío -->
+    <TextField fx:id="messageField" layoutX="26.0" layoutY="687.0" prefHeight="50.0" prefWidth="1001.0" promptText="Escribe un mensaje" styleClass="textFieldTxat" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="173.0" />
+    <Button fx:id="attachButton" layoutX="1050.0" layoutY="686.0" prefHeight="50.0" prefWidth="50.0" styleClass="buttonCss" text="+" textFill="WHITE" AnchorPane.rightAnchor="120.0">
+        <font>
+            <Font size="19.0" />
+        </font>
+    </Button>    <!-- Botón de envío -->
     <Button fx:id="sendButton" layoutX="1090.0" layoutY="686.0" onAction="#sendMessage" prefHeight="50.0" prefWidth="100.0" styleClass="buttonCss" text="Enviar" textFill="WHITE" AnchorPane.rightAnchor="15.0">
       <font>
          <Font size="19.0" />
