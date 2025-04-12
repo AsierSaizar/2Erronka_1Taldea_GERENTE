@@ -67,6 +67,7 @@ public class TxataController extends BaseController {
                 setIzena(langilea.getIzena());
         }
 
+
         public void displayMessage(String message) {
                 Platform.runLater(() -> {
                         Text text = new Text(message);
@@ -140,6 +141,9 @@ public class TxataController extends BaseController {
                         String senderName = parts[0].trim();
                         String fileName = parts[1].trim(); // Aquí asumimos que el segundo parte es el nombre del archivo
 
+                        String[] partsName = fileName.split(":", 2);
+                        String fileNameOrigin = partsName[1].trim();
+
                         // Determinar si el mensaje es del usuario actual
                         boolean isUser = senderName.equals(this.Izena);
 
@@ -179,7 +183,7 @@ public class TxataController extends BaseController {
 
                                         // Crear un FileChooser para guardar el archivo
                                         FileChooser fileChooser = new FileChooser();
-                                        fileChooser.setInitialFileName(fileName); // Nombre predeterminado del archivo
+                                        fileChooser.setInitialFileName(fileNameOrigin); // Nombre predeterminado del archivo
                                         File selectedFile = fileChooser.showSaveDialog(null);
 
                                         if (selectedFile != null) {
