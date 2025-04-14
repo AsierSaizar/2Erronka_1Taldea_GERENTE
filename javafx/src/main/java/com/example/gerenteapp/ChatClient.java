@@ -22,8 +22,8 @@ public class ChatClient {
         public void connect() {
                 new Thread(() -> {
                         try {
-                                //socket = new Socket("192.168.115.188", 5555);
-                                socket = new Socket("localhost", 5555);
+                                //socket = new Socket("192.168.115.188", 9090);
+                                socket = new Socket("localhost", 9090);
                                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                                 writer = new PrintWriter(socket.getOutputStream(), true);
                                 listenForMessages();

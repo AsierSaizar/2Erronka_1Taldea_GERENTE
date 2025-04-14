@@ -66,7 +66,7 @@ class EguraldiaControllerTest {
     @Test
     void testArtxiboaIgoFtp() throws Exception {
         // Especificamos la ruta absoluta correcta al archivo eguraldia.xml
-        File outputFile = new File("C:\\Users\\Urko\\Desktop\\2.Erronka\\GERENTE\\2Erronka_1Taldea_GERENTE\\eguraldia.xml");
+        File outputFile = new File("../eguraldia.xml");
 
         // Llamar al método artxiboaIgoFtp
         controller.artxiboaIgoFtp();
