@@ -23,13 +23,13 @@ public class TxataController extends BaseController {
         @FXML
         public HBox navBarContainer;
         @FXML
-        private VBox chatBox;
+        VBox chatBox;
         @FXML
-        private TextField messageField;
+        TextField messageField;
         @FXML
         private Button sendButton;
         @FXML
-        private ScrollPane scrollPane;
+        ScrollPane scrollPane;
         @FXML
         private Button attachButton; // Nuevo botón para adjuntar archivos
 
