@@ -2,11 +2,16 @@ package com.example.gerenteapp;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+
+
 import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class EguraldiaControllerTest {
 
@@ -74,6 +79,83 @@ class EguraldiaControllerTest {
             outputFile.delete();
         }
     }
+
+    @Test
+    void testXmlPush_zenbaitEgun() throws Exception {
+        File tempFile = File.createTempFile("input-", ".xml");
+        try (FileWriter writer = new FileWriter(tempFile)) {
+            writer.write("<root><prediccion>" +
+                    "<dia fecha=\"2025-04-10\"><temperatura><maxima>22</maxima><minima>12</minima></temperatura><prob_precipitacion>20</prob_precipitacion><estado_cielo descripcion=\"Cubierto\">25n</estado_cielo><viento><velocidad>15</velocidad><direccion>Norte</direccion></viento></dia>" +
+                    "<dia fecha=\"2025-04-11\"><temperatura><maxima>18</maxima><minima>8</minima></temperatura><prob_precipitacion>80</prob_precipitacion><estado_cielo descripcion=\"Despejado\">5n</estado_cielo><viento><velocidad>5</velocidad><direccion>Sur</direccion></viento></dia>" +
+                    "</prediccion></root>");
+        }
+
+        InputStream input = new FileInputStream(tempFile);
+        ArrayList<Object> files = new ArrayList<>();
+        files.add(input);
+
+        controller.xmlPush();
+
+        File output = new File("./eguraldia.xml");
+        assertTrue(output.exists(), "El archivo de salida debería existir");
+        Files.deleteIfExists(output.toPath());
+        tempFile.delete();
+    }
+
+    @Test
+    void testXmlPush_egiaztatuIrteerakoEdukia() throws Exception {
+        // Crear archivo XML temporal con datos simulados
+        File tempFile = File.createTempFile("input-", ".xml");
+        try (FileWriter writer = new FileWriter(tempFile)) {
+            writer.write("<root><prediccion><dia fecha=\"2025-04-10\">" +
+                    "<temperatura><maxima>20</maxima><minima>10</minima></temperatura>" +
+                    "<prob_precipitacion>0.0</prob_precipitacion>" +
+                    "<estado_cielo descripcion=\"Despejado\">15n</estado_cielo>" +
+                    "<viento><velocidad>10</velocidad><direccion>Oeste</direccion></viento>" +
+                    "</dia></prediccion></root>");
+        }
+
+        InputStream fakeInput = new FileInputStream(tempFile);
+        ArrayList<Object> mockResult = new ArrayList<>();
+        mockResult.add(fakeInput);
+        mockResult.add(tempFile);
+
+        // Mock del método estático sin import static
+        try (MockedStatic<EguraldiaController> mocked = Mockito.mockStatic(EguraldiaController.class)) {
+            mocked.when(() -> EguraldiaController.getFiles(Mockito.anyBoolean(), Mockito.anyString()))
+                    .thenReturn(mockResult);
+
+            EguraldiaController controller = new EguraldiaController() {
+                public static void artxiboaIgoFtp() {
+                    // No hacer nada en el test
+                }
+            };
+
+            controller.xmlPush();
+
+            File output = new File("./eguraldia.xml");
+            assertTrue(output.exists());
+
+            String contenido = new String(Files.readAllBytes(output.toPath()));
+            assertTrue(contenido.contains("<tenperatura_gorakoa>20</tenperatura_gorakoa>"));
+            assertTrue(contenido.contains("<tenperatura_behekoa>10</tenperatura_behekoa>"));
+            assertTrue(contenido.contains("<deskribapena>Argi</deskribapena>"));
+            assertTrue(contenido.contains("<haize_azterketa>Haize batezbesteko abiadura: 10 km/h eta Oeste norabaitik datorrena</haize_azterketa>"));
+
+            System.out.println("XML generado:\n" + contenido);
+
+            Files.deleteIfExists(output.toPath());
+            tempFile.delete();
+        }
+    }
+
+
+    @Test
+    void testArtxiboaIgoFtp_conexioGabe() {
+
+        assertDoesNotThrow(() -> controller.artxiboaIgoFtp());
+    }
+
 
 
 }
