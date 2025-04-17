@@ -105,10 +105,15 @@ public class EguraldiaController {
                         Map<String, String> espEus = new HashMap<>();
                         espEus.put("Cubierto con lluvia", "Euriz beteta");
                         espEus.put("Despejado", "Argi");
+                        espEus.put("Nuboso", "Hodeitsua");
+                        espEus.put("Nuboso con tormenta", "Euritsua ekaitzarekin");
+                        espEus.put("Muy nuboso con lluvia", "Oso hodeitsua euriarekin");
+                        espEus.put("Muy nuboso con tormenta", "Oso euritsua ekaitzarekin");
                         espEus.put("Poco nuboso", "Hodei gutxiekin");
                         espEus.put("Muy nuboso", "Oso hodeitsua");
+                        espEus.put("Nuboso con lluvia", "Hodeitsua euriarekin");
                         espEus.put("Cubierto", "Hodeituta");
-                        espEus.put("Intervalos nubosos con lluvia escasa", "Euria gutxi duten hodeiak noizbehinka");
+                        espEus.put("Intervalos nubosos con lluvia", "Euria gutxi duten hodeiak noizbehinka");
 
                         NodeList estadoNodes = (NodeList) xpath.evaluate("estado_cielo", dia, XPathConstants.NODESET);
                         double sumaEgoera = 0.0;
@@ -159,7 +164,7 @@ public class EguraldiaController {
                                 deskribapenEsp = deskribapenEsp.substring(0, 1).toUpperCase() + deskribapenEsp.substring(1);
                         }
 
-// Itzuli deskribapena euskerara
+                        // Itzuli deskribapena euskerara
                         String deskribapenEus = espEus.getOrDefault(deskribapenEsp, deskribapenEsp);
                         Element deskribapena = newDoc.createElement("deskribapena");
                         deskribapena.setTextContent(deskribapenEus);
