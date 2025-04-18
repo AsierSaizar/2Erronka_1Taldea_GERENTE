@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.xml.sax.SAXException;
@@ -57,6 +54,8 @@ public class MahaiaController extends BaseController {
         private ComboBox gaitutaComboBox;
 
         private ObservableList<Mahaia> mahailakData = FXCollections.observableArrayList();
+
+
 
         @FXML
         public void initialize() {
@@ -165,7 +164,6 @@ public class MahaiaController extends BaseController {
                         System.out.println("Por favor, ingresa valores numéricos válidos.");
                 }
         }
-
 
 
         public void xmlDownload(ActionEvent actionEvent) throws Exception {
