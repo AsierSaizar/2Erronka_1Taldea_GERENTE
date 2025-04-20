@@ -55,6 +55,8 @@ public class MahaiaController extends BaseController {
 
         private ObservableList<Mahaia> mahailakData = FXCollections.observableArrayList();
 
+        @FXML
+        private Button kanpokoMahai;
 
 
         @FXML
@@ -75,6 +77,17 @@ public class MahaiaController extends BaseController {
                                 populateFields(newValue);
                         }
                 });
+
+                ActualizarColorBotonMahaia();
+
+        }
+
+        private void ActualizarColorBotonMahaia() {
+                if (MahaiaKudeatzailea.kanpokoMahaiEgoera2()) {
+                        kanpokoMahai.setStyle("-fx-background-color: red;");
+                } else if (MahaiaKudeatzailea.kanpokoMahaiEgoera1()) {
+                        kanpokoMahai.setStyle("-fx-background-color: green;");
+                }
         }
 
         private void loadMahailakData() {
@@ -171,6 +184,28 @@ public class MahaiaController extends BaseController {
                 eguraldiaController.xmlPush();
         }
 
+
+        public void kanpokoMahai(ActionEvent actionEvent) throws Exception {
+                if (MahaiaKudeatzailea.kanpokoMahaiEgoera2()){
+                        if (MahaiaKudeatzailea.kanpokoMahaiakGaitu()){
+                                Alertak.mostrarMensajeFeddBack("Kanpoko mahaiak ondo gaitu dira.");
+                                ActualizarColorBotonMahaia();
+                        }else{
+                                Alertak.mostrarMensajeAlerta("Errore bat gertatu da kanpoko Mahaiak gaitzerakoan.");
+                        }
+                } else if (MahaiaKudeatzailea.kanpokoMahaiEgoera1()) {
+                        if (MahaiaKudeatzailea.kanpokoMahaiakDesgaitu()){
+                                Alertak.mostrarMensajeFeddBack("Kanpoko mahaiak ondo desgaitu dira.");
+                                ActualizarColorBotonMahaia();
+                        }else{
+                                Alertak.mostrarMensajeAlerta("Errore bat gertatu da kanpoko Mahaiak desgaitzerakoan.");
+                        }
+                }else{
+                        Alertak.mostrarMensajeAlerta("Ez daude mahaiak kanpoan.");
+                }
+        }
+
+
         /**
          * Limpiar los campos de entrada del formulario.
          */
@@ -183,5 +218,13 @@ public class MahaiaController extends BaseController {
 
         public void informeaSortu(ActionEvent actionEvent) {
 
+        }
+
+        public Button getKanpokoMahai() {
+                return kanpokoMahai;
+        }
+
+        public void setKanpokoMahai(Button kanpokoMahai) {
+                this.kanpokoMahai = kanpokoMahai;
         }
 }
