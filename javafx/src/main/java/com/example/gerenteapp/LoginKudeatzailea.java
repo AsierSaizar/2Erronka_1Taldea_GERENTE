@@ -42,6 +42,7 @@ public class LoginKudeatzailea {
 
                 } catch (SQLException e) {
                         System.err.println("Errorea autentikazioan: " + e.getMessage());
+                        Alertak.mostrarMensajeAlerta("Datu basera konektatzeko arazoak.");
                 }
 
                 // Si no hay resultados o hay un error, devolver null
