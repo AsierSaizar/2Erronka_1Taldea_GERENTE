@@ -39,6 +39,8 @@ public class MahaiaController extends BaseController {
         @FXML
         private TableColumn<Mahaia, Boolean> habilitadoColumn;
         @FXML
+        private TableColumn<Mahaia, Boolean> terrazaColumn;
+        @FXML
         private TableColumn<Mahaia, String> updated_atColumn;
 
         @FXML
@@ -52,6 +54,8 @@ public class MahaiaController extends BaseController {
 
         @FXML
         private ComboBox gaitutaComboBox;
+        @FXML
+        private ComboBox terrazaComboBox;
 
         private ObservableList<Mahaia> mahailakData = FXCollections.observableArrayList();
 
@@ -66,6 +70,7 @@ public class MahaiaController extends BaseController {
                 mahailaZenbakiaColumn.setCellValueFactory(new PropertyValueFactory<>("mahaila_zenbakia"));
                 eserlekuakColumn.setCellValueFactory(new PropertyValueFactory<>("eserlekuak"));
                 habilitadoColumn.setCellValueFactory(new PropertyValueFactory<>("habilitado"));
+                terrazaColumn.setCellValueFactory(new PropertyValueFactory<>("terraza"));
                 updated_atColumn.setCellValueFactory(new PropertyValueFactory<>("updated_at"));
 
                 // Cargar los datos desde la base de datos
@@ -112,6 +117,7 @@ public class MahaiaController extends BaseController {
                                         resultSet.getInt("mahaila_zenbakia"),
                                         resultSet.getInt("eserlekuak"),
                                         habilitado,
+                                        resultSet.getInt("terraza"),
                                         update_at
                                 );
                                 mahailakData.add(mahaila);
@@ -132,6 +138,7 @@ public class MahaiaController extends BaseController {
                 mahaiZenbField1.setText(String.valueOf(selectedMahaia.getMahaila_zenbakia()));
                 eserlekuKantField1.setText(String.valueOf(selectedMahaia.getEserlekuak()));
                 gaitutaComboBox.getSelectionModel().select(selectedMahaia.isHabilitado());
+                terrazaComboBox.getSelectionModel().select(selectedMahaia.getTerraza());
 
         }
 
@@ -150,7 +157,7 @@ public class MahaiaController extends BaseController {
                         int newEserlekuak = Integer.parseInt(eserlekuKantField1.getText());
 
                         int newHabilitado = Integer.parseInt((String) gaitutaComboBox.getValue());
-
+                        int newTerraza = Integer.parseInt((String) terrazaComboBox.getValue());
                         String update_at = null;
 
                         // Crear una instancia actualizada de Mahaia con los valores modificados
@@ -159,6 +166,7 @@ public class MahaiaController extends BaseController {
                                 newMahailaZenbakia,
                                 newEserlekuak,
                                 newHabilitado,
+                                newTerraza,
                                 update_at
                         );
 
@@ -190,6 +198,7 @@ public class MahaiaController extends BaseController {
                         if (MahaiaKudeatzailea.kanpokoMahaiakGaitu()){
                                 Alertak.mostrarMensajeFeddBack("Kanpoko mahaiak ondo gaitu dira.");
                                 ActualizarColorBotonMahaia();
+                                loadMahailakData();
                         }else{
                                 Alertak.mostrarMensajeAlerta("Errore bat gertatu da kanpoko Mahaiak gaitzerakoan.");
                         }
@@ -197,6 +206,7 @@ public class MahaiaController extends BaseController {
                         if (MahaiaKudeatzailea.kanpokoMahaiakDesgaitu()){
                                 Alertak.mostrarMensajeFeddBack("Kanpoko mahaiak ondo desgaitu dira.");
                                 ActualizarColorBotonMahaia();
+                                loadMahailakData();
                         }else{
                                 Alertak.mostrarMensajeAlerta("Errore bat gertatu da kanpoko Mahaiak desgaitzerakoan.");
                         }

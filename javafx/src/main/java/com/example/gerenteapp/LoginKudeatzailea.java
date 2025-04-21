@@ -9,7 +9,6 @@ public class LoginKudeatzailea {
 
         // Modificar la consulta para permitir login a cualquier trabajador
         static Langilea erabiltzaileaKomprobatu(String email, String pasa) {
-                // Consulta modificada: eliminamos el filtro de nivel_permisos = 0
                 String query = "SELECT * FROM langilea WHERE email = ? AND pasahitza = ? and deleted_at IS NULL";
 
                 try (Connection conn = DBKonexioa.getKonexioa();
@@ -21,17 +20,24 @@ public class LoginKudeatzailea {
                         ResultSet rs = stmt.executeQuery();
 
                         if (rs.next()) {
-                                // Crear y devolver una instancia de Langilea
-                                return new Langilea(
-                                        rs.getInt("id"),
-                                        rs.getString("izena"),
-                                        rs.getString("abizena"),
-                                        rs.getString("pasahitza"),
-                                        rs.getString("email"),
-                                        rs.getInt("nivel_permisos"),
-                                        rs.getString("deleted_at"),
-                                        rs.getInt("txat_permiso")
-                                );
+                                if (rs.getInt("nivel_permisos") !=0){
+                                        Alertak.mostrarMensajeAlerta("Erabiltzaile honek ez dauzka aplikazio hontarako baimenak.");
+                                }else{
+                                        // Crear y devolver una instancia de Langilea
+                                        return new Langilea(
+                                                rs.getInt("id"),
+                                                rs.getString("izena"),
+                                                rs.getString("abizena"),
+                                                rs.getString("pasahitza"),
+                                                rs.getString("email"),
+                                                rs.getInt("nivel_permisos"),
+                                                rs.getString("deleted_at"),
+                                                rs.getInt("txat_permiso")
+                                        );
+                                }
+
+                        }else{
+                                Alertak.mostrarMensajeAlerta("Erabiltzaile eta pasahitzak ez dira zuzenak, saiatu berriro.");
                         }
 
                 } catch (SQLException e) {

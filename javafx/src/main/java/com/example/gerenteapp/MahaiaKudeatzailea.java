@@ -7,11 +7,12 @@ public class MahaiaKudeatzailea {
         public static boolean editMahaia(Mahaia updatedMahaia) {
                 // Actualizar en la base de datos
                 try (Connection connection = DBKonexioa.getKonexioa()) {
-                        String updateQuery = "UPDATE mahaia SET eserlekuak = ?, habilitado = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
+                        String updateQuery = "UPDATE mahaia SET eserlekuak = ?, habilitado = ?, terraza = ?,updated_at = CURRENT_TIMESTAMP WHERE id = ?";
                         var preparedStatement = connection.prepareStatement(updateQuery);
                         preparedStatement.setInt(1, updatedMahaia.getEserlekuak());
                         preparedStatement.setInt(2, updatedMahaia.isHabilitado());
-                        preparedStatement.setInt(3, updatedMahaia.getId());
+                        preparedStatement.setInt(3, updatedMahaia.getTerraza());
+                        preparedStatement.setInt(4, updatedMahaia.getId());
 
                         int rowsAffected = preparedStatement.executeUpdate();
                         if (rowsAffected > 0) {

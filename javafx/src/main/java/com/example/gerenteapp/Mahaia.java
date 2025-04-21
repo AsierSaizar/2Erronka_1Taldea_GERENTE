@@ -5,6 +5,7 @@ public class Mahaia {
         private int mahaila_zenbakia;
         private int eserlekuak;
         private int habilitado;
+        private int terraza;
         private String updated_at;
 
 
@@ -20,11 +21,12 @@ public class Mahaia {
                 return habilitado;
         }
 
-        public Mahaia(int id, int mahaila_zenbakia, int eserlekuak, int habilitado, String update_at) {
+        public Mahaia(int id, int mahaila_zenbakia, int eserlekuak, int habilitado, int terraza, String update_at) {
                 this.id = id;
                 this.mahaila_zenbakia = mahaila_zenbakia;
                 this.eserlekuak = eserlekuak;
                 this.habilitado = habilitado;
+                this.terraza = terraza;
                 this.updated_at = update_at;
         }
 
@@ -55,6 +57,9 @@ public class Mahaia {
 
         public int isHabilitado() {
                 return habilitado;
+        }
+        public int getTerraza(){
+                return terraza;
         }
 
         public void setHabilitado(int habilitado) {

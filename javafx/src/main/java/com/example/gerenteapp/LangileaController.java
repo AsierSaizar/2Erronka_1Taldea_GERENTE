@@ -241,7 +241,7 @@ public class LangileaController extends BaseController {
                 }
 
                 if (LangileaKudeatzailea.deleteLangilea(id)) {
-                        mostrarAlerta(AlertType.INFORMATION, "Éxito", "Langilea eliminado correctamente.");
+                        mostrarAlerta(AlertType.INFORMATION, "Éxito", "Langilea ondo ezabatu da.");
                         loadLangileakData();
                         IdDeleteField.clear();
                         izenaDeleteField.clear();
@@ -260,7 +260,7 @@ public class LangileaController extends BaseController {
                 }
 
                 if (LangileaKudeatzailea.berreskuratuLangilea(id)) {
-                        mostrarAlerta(AlertType.INFORMATION, "Éxito", "Langilea berreskuratuta correctamente.");
+                        mostrarAlerta(AlertType.INFORMATION, "Éxito", "Langilea ondo berreskuratu da da.");
                         loadLangileakData();
                         IdDeleteField.clear();
                         izenaDeleteField.clear();
