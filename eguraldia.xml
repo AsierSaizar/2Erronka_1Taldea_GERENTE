@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <prediccion>
-    <eguraldia data="2025-04-20">
-        <tenperatura_gorakoa>14</tenperatura_gorakoa>
-        <tenperatura_behekoa>8</tenperatura_behekoa>
+    <eguraldia data="2025-04-28">
+        <tenperatura_gorakoa>23</tenperatura_gorakoa>
+        <tenperatura_behekoa>7</tenperatura_behekoa>
         <euri>
-            <euri_batezbestekoa>100</euri_batezbestekoa>
+            <euri_batezbestekoa>0</euri_batezbestekoa>
         </euri>
         <zeru_egoera>
-            <balio_batezbestekoa>26</balio_batezbestekoa>
-            <deskribapena>Euriz beteta</deskribapena>
+            <balio_batezbestekoa>11</balio_batezbestekoa>
+            <deskribapena>Argi</deskribapena>
         </zeru_egoera>
-        <haize_azterketa>Haize batezbesteko abiadura: 0 km/h eta C norabaitik datorrena</haize_azterketa>
+        <haize_azterketa>Haize batezbesteko abiadura: 8 km/h eta SE norabaitik datorrena</haize_azterketa>
     </eguraldia>
-    <eguraldia data="2025-04-21">
-        <tenperatura_gorakoa>18</tenperatura_gorakoa>
-        <tenperatura_behekoa>9</tenperatura_behekoa>
+    <eguraldia data="2025-04-29">
+        <tenperatura_gorakoa>23</tenperatura_gorakoa>
+        <tenperatura_behekoa>14</tenperatura_behekoa>
         <euri>
-            <euri_batezbestekoa>74</euri_batezbestekoa>
+            <euri_batezbestekoa>0</euri_batezbestekoa>
         </euri>
         <zeru_egoera>
-            <balio_batezbestekoa>33</balio_batezbestekoa>
-            <deskribapena>Cubierto con lluvia escasa</deskribapena>
+            <balio_batezbestekoa>11</balio_batezbestekoa>
+            <deskribapena>Argi</deskribapena>
         </zeru_egoera>
-        <haize_azterketa>Haize batezbesteko abiadura: 3 km/h eta C norabaitik datorrena</haize_azterketa>
+        <haize_azterketa>Haize batezbesteko abiadura: 16 km/h eta SE norabaitik datorrena</haize_azterketa>
     </eguraldia>
-    <eguraldia data="2025-04-22">
-        <tenperatura_gorakoa>13</tenperatura_gorakoa>
-        <tenperatura_behekoa>8</tenperatura_behekoa>
+    <eguraldia data="2025-04-30">
+        <tenperatura_gorakoa>23</tenperatura_gorakoa>
+        <tenperatura_behekoa>14</tenperatura_behekoa>
         <euri>
-            <euri_batezbestekoa>92</euri_batezbestekoa>
+            <euri_batezbestekoa>0</euri_batezbestekoa>
         </euri>
         <zeru_egoera>
-            <balio_batezbestekoa>24</balio_batezbestekoa>
-            <deskribapena>Hodeitsua euriarekin</deskribapena>
+            <balio_batezbestekoa>12</balio_batezbestekoa>
+            <deskribapena>Hodei gutxiekin</deskribapena>
         </zeru_egoera>
-        <haize_azterketa>Haize batezbesteko abiadura: 7 km/h eta N norabaitik datorrena</haize_azterketa>
+        <haize_azterketa>Haize batezbesteko abiadura: 25 km/h eta S norabaitik datorrena</haize_azterketa>
     </eguraldia>
-    <eguraldia data="2025-04-23">
-        <tenperatura_gorakoa>19</tenperatura_gorakoa>
-        <tenperatura_behekoa>6</tenperatura_behekoa>
+    <eguraldia data="2025-05-01">
+        <tenperatura_gorakoa>25</tenperatura_gorakoa>
+        <tenperatura_behekoa>13</tenperatura_behekoa>
         <euri>
-            <euri_batezbestekoa>83</euri_batezbestekoa>
+            <euri_batezbestekoa>30</euri_batezbestekoa>
         </euri>
         <zeru_egoera>
-            <balio_batezbestekoa>25</balio_batezbestekoa>
-            <deskribapena>Oso hodeitsua euriarekin</deskribapena>
+            <balio_batezbestekoa>13</balio_batezbestekoa>
+            <deskribapena>Intervalos nubosos</deskribapena>
         </zeru_egoera>
-        <haize_azterketa>Haize batezbesteko abiadura: 15 km/h eta NO norabaitik datorrena</haize_azterketa>
+        <haize_azterketa>Haize batezbesteko abiadura: 13 km/h eta SE norabaitik datorrena</haize_azterketa>
     </eguraldia>
-    <eguraldia data="2025-04-24">
-        <tenperatura_gorakoa>18</tenperatura_gorakoa>
-        <tenperatura_behekoa>10</tenperatura_behekoa>
+    <eguraldia data="2025-05-02">
+        <tenperatura_gorakoa>23</tenperatura_gorakoa>
+        <tenperatura_behekoa>16</tenperatura_behekoa>
         <euri>
-            <euri_batezbestekoa>100</euri_batezbestekoa>
-        </euri>
-        <zeru_egoera>
-            <balio_batezbestekoa>25</balio_batezbestekoa>
-            <deskribapena>Oso hodeitsua euriarekin</deskribapena>
-        </zeru_egoera>
-        <haize_azterketa>Haize batezbesteko abiadura: 5 km/h eta N norabaitik datorrena</haize_azterketa>
-    </eguraldia>
-    <eguraldia data="2025-04-25">
-        <tenperatura_gorakoa>22</tenperatura_gorakoa>
-        <tenperatura_behekoa>9</tenperatura_behekoa>
-        <euri>
-            <euri_batezbestekoa>70</euri_batezbestekoa>
+            <euri_batezbestekoa>55</euri_batezbestekoa>
         </euri>
         <zeru_egoera>
             <balio_batezbestekoa>43</balio_batezbestekoa>
             <deskribapena>Intervalos nubosos con lluvia escasa</deskribapena>
         </zeru_egoera>
-        <haize_azterketa>Haize batezbesteko abiadura: 5 km/h eta NE norabaitik datorrena</haize_azterketa>
+        <haize_azterketa>Haize batezbesteko abiadura: 20 km/h eta S norabaitik datorrena</haize_azterketa>
     </eguraldia>
-    <eguraldia data="2025-04-26">
-        <tenperatura_gorakoa>15</tenperatura_gorakoa>
-        <tenperatura_behekoa>11</tenperatura_behekoa>
+    <eguraldia data="2025-05-03">
+        <tenperatura_gorakoa>22</tenperatura_gorakoa>
+        <tenperatura_behekoa>15</tenperatura_behekoa>
         <euri>
-            <euri_batezbestekoa>90</euri_batezbestekoa>
+            <euri_batezbestekoa>85</euri_batezbestekoa>
+        </euri>
+        <zeru_egoera>
+            <balio_batezbestekoa>24</balio_batezbestekoa>
+            <deskribapena>Hodeitsua euriarekin</deskribapena>
+        </zeru_egoera>
+        <haize_azterketa>Haize batezbesteko abiadura: 20 km/h eta S norabaitik datorrena</haize_azterketa>
+    </eguraldia>
+    <eguraldia data="2025-05-04">
+        <tenperatura_gorakoa>21</tenperatura_gorakoa>
+        <tenperatura_behekoa>13</tenperatura_behekoa>
+        <euri>
+            <euri_batezbestekoa>100</euri_batezbestekoa>
         </euri>
         <zeru_egoera>
             <balio_batezbestekoa>25</balio_batezbestekoa>
             <deskribapena>Oso hodeitsua euriarekin</deskribapena>
         </zeru_egoera>
-        <haize_azterketa>Haize batezbesteko abiadura: 10 km/h eta N norabaitik datorrena</haize_azterketa>
+        <haize_azterketa>Haize batezbesteko abiadura: 0 km/h eta C norabaitik datorrena</haize_azterketa>
     </eguraldia>
 </prediccion>

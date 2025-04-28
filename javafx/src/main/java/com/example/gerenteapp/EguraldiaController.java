@@ -310,7 +310,7 @@ public class EguraldiaController {
 
                 try {
                         // Intentar conectar al servidor FTP
-                        String ftpServer = "127.0.0.1"; // Cambia esto si es necesario
+                        String ftpServer = "192.168.115.188"; // Cambia esto si es necesario
                         System.out.println("Conectando al servidor FTP: " + ftpServer);
                         client.connect(ftpServer);
 

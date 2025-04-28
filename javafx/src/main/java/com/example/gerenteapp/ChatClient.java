@@ -22,8 +22,8 @@ public class ChatClient {
         public void connect() {
                 new Thread(() -> {
                         try {
-                                //socket = new Socket("192.168.115.188", 9090);
-                                socket = new Socket("localhost", 9090);
+                                socket = new Socket("192.168.115.188", 9090);
+                                //socket = new Socket("127.16.0.1", 9090);
                                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                                 writer = new PrintWriter(socket.getOutputStream(), true);
                                 listenForMessages();
@@ -34,16 +34,28 @@ public class ChatClient {
                 }).start();
         }
 
-        public void sendMessage(String message) throws Exception {
-                String user = message.split(">")[0];
-                String encryptedMessage = CryptoUtil.encrypt(message.split(">")[1]);
-                message = user + "> " + encryptedMessage;
-                writer.println(message);
+        public boolean sendMessage(String message) throws Exception {
+                try{
+                        String user = message.split(">")[0];
+                        String encryptedMessage = CryptoUtil.encrypt(message.split(">")[1]);
+                        message = user + "> " + encryptedMessage;
+                        writer.println(message);
+                        return true;
+                }catch (Exception e){
+                        return false;
+                }
+
         }
 
-        public static void sendFile(byte[] fileContent, String fileName, String izena) throws Exception {
-                String message = izena + "> " + fileName + "> " + Arrays.toString(fileContent);
-                writer.println(message);
+        public static boolean sendFile(byte[] fileContent, String fileName, String izena) throws Exception {
+                try {
+                        String message = izena + "> " + fileName + "> " + Arrays.toString(fileContent);
+                        writer.println(message);
+                        return true;
+                }catch (Exception e){
+                        return false;
+                }
+
         }
 
         private void listenForMessages() {

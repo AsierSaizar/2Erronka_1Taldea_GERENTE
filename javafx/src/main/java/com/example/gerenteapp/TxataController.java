@@ -38,27 +38,35 @@ public class TxataController extends BaseController {
         private String Izena;
 
         @FXML
-        public void initialize() {
+        public void initialize() throws Exception {
+
                 chatClient = new ChatClient(this);
                 chatClient.connect();
 
 
                 // Configurar el evento del botón de adjuntar archivos
                 attachButton.setOnAction(event -> handleAttachFile());
+
         }
 
         public void setIzena(String Izena) {
                 this.Izena = Izena;
         }
 
+
+
         @FXML
         private void sendMessage() throws Exception {
                 String message = messageField.getText();
                 if (!message.isEmpty()) {
                         message = this.Izena + "> " + message;
-                        chatClient.sendMessage(message);
-                        displayMessage(message);
-                        messageField.clear();
+                        if (chatClient.sendMessage(message)){
+                                displayMessage(message);
+                                messageField.clear();
+                        }else{
+                                Alertak.mostrarMensajeAlerta("Txata ez dago piztuta");
+                        }
+
                 }
         }
 
@@ -122,10 +130,15 @@ public class TxataController extends BaseController {
                                 String message = this.Izena + "> 📂: " + fileName;
 
                                 // Enviar el archivo a través del cliente de chat
-                                ChatClient.sendFile(fileContent, fileName, this.Izena);
+                                if (ChatClient.sendFile(fileContent, fileName, this.Izena)){
+                                        // Mostrar el archivo adjunto en el chat
+                                        displayFile(message, Arrays.toString(fileContent));
+                                }else{
+                                        Alertak.mostrarMensajeAlerta("Txata ez dago piztuta");
+                                }
 
-                                // Mostrar el archivo adjunto en el chat
-                                displayFile(message, Arrays.toString(fileContent));
+
+
                         } catch (Exception e) {
                                 e.printStackTrace();
                                 System.err.println("Error al leer el archivo: " + e.getMessage());

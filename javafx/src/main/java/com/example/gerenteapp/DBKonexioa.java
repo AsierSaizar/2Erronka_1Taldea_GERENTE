@@ -6,14 +6,11 @@ import java.sql.SQLException;
 
 public class DBKonexioa {
 
+
+
         // Datu base locala
-        //private static final String Db_izena = "jdbc:mysql://192.168.115.188:3306/5_erronka1";
-        //private static final String Db_erabiltzailea = "root";
-        //private static final String Db_pasahitza = "1WMG2023";
-
-
-        // Datu base locala URKO
-        private static final String Db_izena = "jdbc:mysql://localhost:3306/5_erronka1";
+        private static final String Db_izena = "jdbc:mysql://192.168.115.188:3306/5_erronka1";
+        //private static final String Db_izena = "jdbc:mysql://localhost:3306/5_erronka1";
         private static final String Db_erabiltzailea = "root";
         private static final String Db_pasahitza = "1WMG2023";
 
