@@ -7,7 +7,8 @@ module com.example.gerenteapp {
         requires java.desktop;
     requires org.json;
         requires org.apache.commons.net;
+    requires net.sf.jasperreports.core;
 
-        opens com.example.gerenteapp to javafx.fxml;
+    opens com.example.gerenteapp to javafx.fxml;
     exports com.example.gerenteapp;
 }

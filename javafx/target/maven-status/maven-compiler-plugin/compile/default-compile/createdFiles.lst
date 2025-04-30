@@ -1,13 +1,17 @@
 com\example\gerenteapp\DBKonexioa.class
 com\example\gerenteapp\NavBarController.class
+com\example\gerenteapp\Alertak.class
 com\example\gerenteapp\FileChoser.class
 com\example\gerenteapp\MyUrlConnection.class
+com\example\gerenteapp\JasperSortuController.class
 com\example\gerenteapp\ChatClient.class
 com\example\gerenteapp\EguraldiaController.class
 module-info.class
 com\example\gerenteapp\HomePage.class
 com\example\gerenteapp\LoginKudeatzailea.class
 com\example\gerenteapp\HelloController.class
+com\example\gerenteapp\CryptoUtil.class
+com\example\gerenteapp\Platerak_Jasper.class
 com\example\gerenteapp\MahaiaKudeatzailea.class
 com\example\gerenteapp\Mahaia.class
 com\example\gerenteapp\LangileaKudeatzailea.class
@@ -18,7 +22,7 @@ com\example\gerenteapp\AlmazenaController.class
 com\example\gerenteapp\MahaiaController.class
 com\example\gerenteapp\BaseController.class
 com\example\gerenteapp\TxataController.class
-com\example\gerenteapp\AESUtil.class
 com\example\gerenteapp\LoginController.class
 com\example\gerenteapp\AlmazenaKudeatzailea.class
+com\example\gerenteapp\Langilea_Jasper.class
 com\example\gerenteapp\Langilea.class

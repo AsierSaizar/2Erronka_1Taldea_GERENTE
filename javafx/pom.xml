@@ -16,6 +16,15 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+
+
+
         <!-- JavaFX core -->
         <dependency>
             <groupId>org.openjfx</groupId>

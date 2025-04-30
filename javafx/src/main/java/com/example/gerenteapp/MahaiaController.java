@@ -227,7 +227,8 @@ public class MahaiaController extends BaseController {
         }
 
         public void informeaSortu(ActionEvent actionEvent) {
-
+                String result = JasperSortuController.JasperSortu();
+                Alertak.mostrarMensajeAlerta(result);
         }
 
         public Button getKanpokoMahai() {

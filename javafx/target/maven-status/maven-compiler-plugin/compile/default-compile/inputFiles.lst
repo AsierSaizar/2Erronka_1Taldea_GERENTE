@@ -1,15 +1,18 @@
-C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\AESUtil.java
+C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\Alertak.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\Almazena.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\AlmazenaController.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\AlmazenaKudeatzailea.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\BaseController.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\ChatClient.java
+C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\CryptoUtil.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\DBKonexioa.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\EguraldiaController.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\FileChoser.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\HelloController.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\HomePage.java
+C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\JasperSortuController.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\Langilea.java
+C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\Langilea_Jasper.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\LangileaController.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\LangileaKudeatzailea.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\LoginController.java
@@ -19,5 +22,6 @@ C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\MahaiaKudeatzailea.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\MyUrlConnection.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\NavBarController.java
+C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\Platerak_Jasper.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\com\example\gerenteapp\TxataController.java
 C:\Users\Urko\Desktop\2.Erronka\GERENTE\2Erronka_1Taldea_GERENTE\javafx\src\main\java\module-info.java
