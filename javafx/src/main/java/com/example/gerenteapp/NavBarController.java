@@ -101,6 +101,10 @@ public class NavBarController extends BaseController {
                 loadScene("TxataView.fxml", "Txata");
         }
 
+        public void manualaIreki(ActionEvent actionEvent){
+                Manuala.manualaIreki();
+        }
+
         /**
          * Muestra un mensaje de error en pantalla.
          *

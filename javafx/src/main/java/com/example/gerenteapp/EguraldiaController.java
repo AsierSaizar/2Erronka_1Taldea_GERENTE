@@ -321,6 +321,8 @@ public class EguraldiaController {
                                 return;
                         }
 
+
+
                         // Intentar iniciar sesión en el servidor FTP
                         boolean loginSuccess = client.login("Gerente", "Gerente");
                         if (!loginSuccess) {
