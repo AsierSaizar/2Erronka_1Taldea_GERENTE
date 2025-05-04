@@ -34,7 +34,7 @@
                 <TableColumn fx:id="abizenaColumn" maxWidth="150.0" minWidth="75.0" prefWidth="100.0" text="Abizena" />
                 <TableColumn fx:id="emailColumn" maxWidth="250.0" minWidth="150.0" prefWidth="200.0" text="Emaila" />
                 <TableColumn fx:id="pasahitzaColumn" maxWidth="250.0" minWidth="150.0" prefWidth="200.0" text="Pasahitza" />
-                <TableColumn fx:id="nivelPermisosColumn" maxWidth="100.0" minWidth="75.0" prefWidth="100.0" text="Nivel Permisos" />
+                <TableColumn fx:id="nivelPermisosColumn" maxWidth="100.0" minWidth="75.0" prefWidth="100.0" text="Baimen maila" />
                 <TableColumn fx:id="deleted_atColumn" maxWidth="128.79998779296875" minWidth="75.0" prefWidth="125.5999755859375" text="Deleted at" />
                 <TableColumn fx:id="txatPermisosColumn" maxWidth="100.0" minWidth="75.0" prefWidth="100.0" text="Txat baimena" />
             </columns>
@@ -51,7 +51,7 @@
         <TextField fx:id="abizenaField" layoutX="300.0" layoutY="582.0" promptText="Abizena" />
         <TextField fx:id="emailaField" layoutX="129.0" layoutY="617.0" promptText="Emaila" />
         <TextField fx:id="pasahitzaField" layoutX="300.0" layoutY="617.0" promptText="Pasahitza" />
-        <ComboBox fx:id="nivelPermisosComboBox" editable="false" layoutX="128.0" layoutY="657.0" prefWidth="150.0" promptText="Nivel de permisos">
+        <ComboBox fx:id="nivelPermisosComboBox" editable="false" layoutX="128.0" layoutY="657.0" prefWidth="150.0" promptText="Baimen maila">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Integer fx:value="0" />
@@ -82,7 +82,7 @@
         <TextField fx:id="abizenaEditField" layoutX="780.0" layoutY="581.0" promptText="Abizena" />
         <TextField fx:id="emailaEditField" layoutX="609.0" layoutY="616.0" promptText="Emaila" />
         <TextField fx:id="pasahitzaEditField" layoutX="780.0" layoutY="616.0" promptText="Pasahitza" />
-        <ComboBox fx:id="nivelPermisosComboBoxEdit" editable="false" layoutX="608.0" layoutY="655.0" prefWidth="150.0" promptText="Nivel de permisos">
+        <ComboBox fx:id="nivelPermisosComboBoxEdit" editable="false" layoutX="608.0" layoutY="655.0" prefWidth="150.0" promptText="Baimen maila">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Integer fx:value="0" />
