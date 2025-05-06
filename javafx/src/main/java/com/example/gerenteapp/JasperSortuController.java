@@ -15,8 +15,8 @@ import java.util.Scanner;
 
 public class JasperSortuController {
     public static void main(String[] args) {
-        compile();
-        //JasperSortu();
+        //compile();
+        JasperSortu();
     }
 
     public static void compile(){
@@ -40,7 +40,7 @@ public class JasperSortuController {
             String firstName = "Saboreame";
 
             // Rutas de los archivos
-            String jrxmlPath = "javafx/src/main/resources/templates/2ERRONKA_JatetxeInformea_1Taldea.jrxml";
+            String jrxmlPath = "src/main/resources/templates/2ERRONKA_JatetxeInformea_1Taldea.jrxml";
 
             // Parámetros del informe
             Map<String, Object> parameters = new HashMap<>();
@@ -70,7 +70,7 @@ public class JasperSortuController {
             parameters.put("LangileakDataset", langileakDataSource);
 
             // Compilar y generar el informe
-            String jasperPath = "javafx/src/main/resources/templates/2ERRONKA_JatetxeInformea_1Taldea.jasper";
+            String jasperPath = "src/main/resources/templates/2ERRONKA_JatetxeInformea_1Taldea.jasper";
             try {
                 JasperCompileManager.compileReportToFile(jrxmlPath, jasperPath);
             } catch (Exception e) {
@@ -100,9 +100,10 @@ public class JasperSortuController {
             // Exportar a PDF
             try {
                 String home = System.getProperty("user.home");
-                String outputPath = home + "/Desktop/2ERRONKA_JatetxeInformea_1Taldea.pdf";
+                String outputPath = home + "/Desktop/2ERRONKA_JatetxeInformea_1Taldea2.pdf";
                 JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
             } catch (Exception e) {
+                e.printStackTrace(); // ← Esto imprime el error real en la consola
                 System.out.println("Error al exportar el PDF");
                 return "Error al exportar el PDF";
             }
