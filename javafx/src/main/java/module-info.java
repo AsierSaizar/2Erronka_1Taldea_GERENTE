@@ -5,7 +5,6 @@ module com.example.gerenteapp {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
         requires java.desktop;
-    requires org.json;
         requires org.apache.commons.net;
     requires net.sf.jasperreports.core;
 

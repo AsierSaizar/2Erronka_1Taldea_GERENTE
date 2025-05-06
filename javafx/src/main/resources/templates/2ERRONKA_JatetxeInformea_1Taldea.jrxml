@@ -109,7 +109,7 @@
 	<parameter name="firstName" class="java.lang.String"/>
 	<query language="sql"><![CDATA[]]></query>
 	<background height="802" splitType="Stretch">
-		<element kind="component" uuid="cfa423e7-76ef-4733-8e05-0bd1dc563a3a" x="198" y="520" width="160" height="200">
+		<element kind="component" uuid="cfa423e7-76ef-4733-8e05-0bd1dc563a3a" x="198" y="480" width="160" height="200">
 			<component kind="table">
 				<datasetRun uuid="42aaa266-acea-4d8c-9bfe-1865f757a9b6" subDataset="LangileakDataset">
 					<dataSourceExpression><![CDATA[$P{LangileakDataset}]]></dataSourceExpression>
@@ -117,7 +117,7 @@
 				<column kind="single" uuid="64521bd4-e0cc-4026-bc43-7b03ec1b5ffb" width="80">
 					<columnHeader height="30" rowSpan="1" style="Table 2_CH">
 						<element kind="staticText" uuid="896e88f0-1153-4119-8cd0-ef2803b34d20" x="0" y="0" width="80" height="30">
-							<text><![CDATA[Pertsona Kopurua]]></text>
+							<text><![CDATA[PertsonaKop]]></text>
 						</element>
 					</columnHeader>
 					<detailCell height="30" style="Table 2_TD">
@@ -130,7 +130,7 @@
 				<column kind="single" uuid="4e5ad8f8-9e93-4246-8f61-e44cabaeaeed" width="70">
 					<columnHeader height="30" rowSpan="1" style="Table 2_CH">
 						<element kind="staticText" uuid="ec07c192-3f3a-40a6-8bb2-0ff644a21bd3" x="0" y="0" width="70" height="30">
-							<text><![CDATA[Eskaera Kantitatea]]></text>
+							<text><![CDATA[EskaeraKant]]></text>
 						</element>
 					</columnHeader>
 					<detailCell height="30" style="Table 2_TD">
@@ -146,7 +146,7 @@
 			<property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
 			<property name="com.jaspersoft.studio.table.style.detail" value="Table 2_TD"/>
 		</element>
-		<element kind="chart" chartType="pie" uuid="2a78a8ec-a2c4-43e0-bb64-2ab862bf8253" x="-10" y="100" width="570" height="360" evaluationTime="Report" linkTarget="Self">
+		<element kind="chart" chartType="pie" uuid="2a78a8ec-a2c4-43e0-bb64-2ab862bf8253" x="0" y="90" width="570" height="360" evaluationTime="Report" linkTarget="Self">
 			<dataset kind="pie">
 				<datasetRun uuid="96eb4e3d-e011-4abd-b159-ae950f0512d0" subDataset="platerakDataset">
 					<dataSourceExpression><![CDATA[$P{platerakDataset}]]></dataSourceExpression>
@@ -163,20 +163,20 @@
 				<itemLabel/>
 			</plot>
 		</element>
-		<element kind="staticText" uuid="8a8d6fc7-5498-4a74-a0cd-0bbcb14161b6" x="205" y="90" width="145" height="20">
-			<text><![CDATA[Gehien eskatzen diren platerak]]></text>
+		<element kind="staticText" uuid="8a8d6fc7-5498-4a74-a0cd-0bbcb14161b6" x="240" y="80" width="130" height="30">
+			<text><![CDATA[Plater gustokoena]]></text>
 		</element>
-		<element kind="staticText" uuid="93c9a1c4-a3b7-4b24-b735-7187d65b1dd2" x="187" y="480" width="180" height="30" hTextAlign="Center">
-			<text><![CDATA[Zenbateko mahiak izaten dira ohikoenak jatetxean]]></text>
+		<element kind="staticText" uuid="93c9a1c4-a3b7-4b24-b735-7187d65b1dd2" x="180" y="450" width="220" height="30">
+			<text><![CDATA[Zenbat pertsona datoz batera?]]></text>
 		</element>
 	</background>
 	<title height="157" splitType="Stretch">
 		<element kind="frame" uuid="29f958b3-9df5-4ee0-905e-9fd33029926f" mode="Opaque" x="-20" y="0" width="597" height="65" forecolor="#006699" backcolor="#006699">
-			<element kind="staticText" uuid="cf1fabd8-9376-4a95-a65d-c762a7404011" x="0" y="0" width="595" height="65" fontSize="54.0" bold="false" hTextAlign="Center" style="Title">
+			<element kind="staticText" uuid="cf1fabd8-9376-4a95-a65d-c762a7404011" x="9" y="0" width="568" height="65" fontSize="54.0" bold="false" hTextAlign="Right" style="Title">
 				<text><![CDATA[Jatetxearen Informea]]></text>
 			</element>
 		</element>
-		<element kind="textField" uuid="8af03bdd-fbd7-43a5-b18c-b834cdc70810" x="368" y="80" width="207" height="57" hTextAlign="Center">
+		<element kind="textField" uuid="8af03bdd-fbd7-43a5-b18c-b834cdc70810" x="330" y="100" width="224" height="57">
 			<expression><![CDATA[$P{firstName}]]></expression>
 		</element>
 	</title>

@@ -1,6 +1,6 @@
-# Created at 2025-04-30T15:46:35.532
+# Created at 2025-05-05T18:53:18.616
 Exiting self fork JVM. Received SHUTDOWN command from Maven shutdown hook.
-Thread dump before exiting the process (19916@DESKTOP-0MR6E75):
+Thread dump before exiting the process (4420@DESKTOP-0MR6E75):
 "main" 
    java.lang.Thread.State: WAITING
         at java.base@23.0.2/jdk.internal.misc.Unsafe.park(Native Method)
@@ -13,7 +13,7 @@ Thread dump before exiting the process (19916@DESKTOP-0MR6E75):
         at app/javafx.graphics@22.0.1/javafx.application.Platform.startup(Platform.java:116)
         at app/com.example.gerenteapp@1.0-SNAPSHOT/com.example.gerenteapp.TxataControllerTest.initJFX(TxataControllerTest.java:23)
         at java.base@23.0.2/java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(DirectMethodHandle$Holder)
-        at java.base@23.0.2/java.lang.invoke.LambdaForm$MH/0x00000000af511000.invoke(LambdaForm$MH)
+        at java.base@23.0.2/java.lang.invoke.LambdaForm$MH/0x00000000b3511000.invoke(LambdaForm$MH)
         at java.base@23.0.2/java.lang.invoke.Invokers$Holder.invokeExact_MT(Invokers$Holder)
         at java.base@23.0.2/jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl(DirectMethodHandleAccessor.java:153)
         at java.base@23.0.2/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
@@ -24,11 +24,11 @@ Thread dump before exiting the process (19916@DESKTOP-0MR6E75):
         at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
         at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptLifecycleMethod(TimeoutExtension.java:128)
         at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptBeforeAllMethod(TimeoutExtension.java:70)
-        at app//org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor$$Lambda/0x00000000af517298.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor$$Lambda/0x00000000b3512478.apply(Unknown Source)
         at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
-        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall$$Lambda/0x00000000af188000.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall$$Lambda/0x00000000b3188000.apply(Unknown Source)
         at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
-        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$$Lambda/0x00000000af1b6848.apply(Unknown Source)
+        at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$$Lambda/0x00000000b31b6848.apply(Unknown Source)
         at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
         at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
         at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
@@ -36,33 +36,33 @@ Thread dump before exiting the process (19916@DESKTOP-0MR6E75):
         at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
         at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
         at app//org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeBeforeAllMethods$13(ClassBasedTestDescriptor.java:412)
-        at app//org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor$$Lambda/0x00000000af517070.execute(Unknown Source)
+        at app//org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor$$Lambda/0x00000000b3512250.execute(Unknown Source)
         at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
         at app//org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeBeforeAllMethods(ClassBasedTestDescriptor.java:410)
         at app//org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.before(ClassBasedTestDescriptor.java:216)
         at app//org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.before(ClassBasedTestDescriptor.java:85)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:148)
-        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000af1a5450.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000b31a5450.execute(Unknown Source)
         at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000af1a5228.invoke(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000b31a5228.invoke(Unknown Source)
         at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000af1a5000.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000b31a5000.execute(Unknown Source)
         at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-        at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService$$Lambda/0x00000000af1a4800.accept(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService$$Lambda/0x00000000b31a4800.accept(Unknown Source)
         at java.base@23.0.2/java.util.ArrayList.forEach(ArrayList.java:1597)
         at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000af1a5450.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000b31a5450.execute(Unknown Source)
         at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000af1a5228.invoke(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000b31a5228.invoke(Unknown Source)
         at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000af1a5000.execute(Unknown Source)
+        at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$$Lambda/0x00000000b31a5000.execute(Unknown Source)
         at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
         at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
@@ -73,7 +73,7 @@ Thread dump before exiting the process (19916@DESKTOP-0MR6E75):
         at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
         at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
         at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
-        at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator$$Lambda/0x00000000af1935b0.accept(Unknown Source)
+        at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator$$Lambda/0x00000000b31935b0.accept(Unknown Source)
         at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
         at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
         at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
@@ -168,16 +168,6 @@ Thread dump before exiting the process (19916@DESKTOP-0MR6E75):
         at java.base@23.0.2/java.lang.Thread.runWith(Thread.java:1588)
         at java.base@23.0.2/java.lang.Thread.run(Thread.java:1575)
 
-"Keep-Alive-Timer" 
-   java.lang.Thread.State: TIMED_WAITING
-        at java.base@23.0.2/java.lang.Thread.sleepNanos0(Native Method)
-        at java.base@23.0.2/java.lang.Thread.sleepNanos(Thread.java:496)
-        at java.base@23.0.2/java.lang.Thread.sleep(Thread.java:527)
-        at java.base@23.0.2/sun.net.www.http.KeepAliveCache.run(KeepAliveCache.java:238)
-        at java.base@23.0.2/java.lang.Thread.runWith(Thread.java:1588)
-        at java.base@23.0.2/java.lang.Thread.run(Thread.java:1575)
-        at java.base@23.0.2/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:186)
-
 "mysql-cj-abandoned-connection-cleanup" 
    java.lang.Thread.State: TIMED_WAITING
         at java.base@23.0.2/jdk.internal.misc.Unsafe.park(Native Method)
@@ -207,7 +197,7 @@ Thread dump before exiting the process (19916@DESKTOP-0MR6E75):
    java.lang.Thread.State: RUNNABLE
         at app/javafx.graphics@22.0.1/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
         at app/javafx.graphics@22.0.1/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
-        at app/javafx.graphics@22.0.1/com.sun.glass.ui.win.WinApplication$$Lambda/0x00000000af51bb78.run(Unknown Source)
+        at app/javafx.graphics@22.0.1/com.sun.glass.ui.win.WinApplication$$Lambda/0x00000000b351cbf0.run(Unknown Source)
         at java.base@23.0.2/java.lang.Thread.runWith(Thread.java:1588)
         at java.base@23.0.2/java.lang.Thread.run(Thread.java:1575)
 

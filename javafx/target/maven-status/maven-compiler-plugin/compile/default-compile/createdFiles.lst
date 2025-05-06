@@ -21,8 +21,10 @@ com\example\gerenteapp\Almazena.class
 com\example\gerenteapp\AlmazenaController.class
 com\example\gerenteapp\MahaiaController.class
 com\example\gerenteapp\BaseController.class
+com\example\gerenteapp\CompileReport.class
 com\example\gerenteapp\TxataController.class
 com\example\gerenteapp\LoginController.class
 com\example\gerenteapp\AlmazenaKudeatzailea.class
 com\example\gerenteapp\Langilea_Jasper.class
+com\example\gerenteapp\Manuala.class
 com\example\gerenteapp\Langilea.class
