@@ -14,27 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class JasperSortuController {
-    public static void main(String[] args) {
-        //compile();
-        JasperSortu();
-    }
 
-    public static void compile(){
-        try {
-            // Ruta al archivo .jrxml (fuente del informe)
-            String jrxmlPath = "javafx/src/main/resources/templates/2ERRONKA_JatetxeInformea_1Taldea.jrxml";
-
-            // Ruta donde se guardará el .jasper compilado
-            String jasperPath = "javafx/src/main/resources/templates/2ERRONKA_JatetxeInformea_1Taldea.jasper";
-
-            // Compilar el .jrxml al .jasper
-            JasperCompileManager.compileReportToFile(jrxmlPath, jasperPath);
-
-            System.out.println("Informe compilado correctamente en: " + jasperPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     public static String JasperSortu() {
         try {
             String firstName = "Saboreame";
@@ -100,7 +80,7 @@ public class JasperSortuController {
             // Exportar a PDF
             try {
                 String home = System.getProperty("user.home");
-                String outputPath = home + "/Desktop/2ERRONKA_JatetxeInformea_1Taldea2.pdf";
+                String outputPath = home + "/Desktop/2ERRONKA_JatetxeInformea_1Taldea.pdf";
                 JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
             } catch (Exception e) {
                 e.printStackTrace(); // ← Esto imprime el error real en la consola

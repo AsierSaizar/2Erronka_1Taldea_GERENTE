@@ -109,7 +109,7 @@
 	<parameter name="firstName" class="java.lang.String"/>
 	<query language="sql"><![CDATA[]]></query>
 	<background height="802" splitType="Stretch">
-		<element kind="component" uuid="cfa423e7-76ef-4733-8e05-0bd1dc563a3a" x="198" y="480" width="160" height="200">
+		<element kind="component" uuid="cfa423e7-76ef-4733-8e05-0bd1dc563a3a" x="205" y="480" width="160" height="200">
 			<component kind="table">
 				<datasetRun uuid="42aaa266-acea-4d8c-9bfe-1865f757a9b6" subDataset="LangileakDataset">
 					<dataSourceExpression><![CDATA[$P{LangileakDataset}]]></dataSourceExpression>
@@ -166,7 +166,7 @@
 		<element kind="staticText" uuid="8a8d6fc7-5498-4a74-a0cd-0bbcb14161b6" x="240" y="80" width="130" height="30">
 			<text><![CDATA[Plater gustokoena]]></text>
 		</element>
-		<element kind="staticText" uuid="93c9a1c4-a3b7-4b24-b735-7187d65b1dd2" x="180" y="450" width="220" height="30">
+		<element kind="staticText" uuid="93c9a1c4-a3b7-4b24-b735-7187d65b1dd2" x="203" y="450" width="150" height="30">
 			<text><![CDATA[Zenbat pertsona datoz batera?]]></text>
 		</element>
 	</background>
@@ -176,7 +176,7 @@
 				<text><![CDATA[Jatetxearen Informea]]></text>
 			</element>
 		</element>
-		<element kind="textField" uuid="8af03bdd-fbd7-43a5-b18c-b834cdc70810" x="330" y="100" width="224" height="57">
+		<element kind="textField" uuid="8af03bdd-fbd7-43a5-b18c-b834cdc70810" x="440" y="80" width="90" height="57">
 			<expression><![CDATA[$P{firstName}]]></expression>
 		</element>
 	</title>
